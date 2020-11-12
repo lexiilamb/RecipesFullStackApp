@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping
 import java.util.*
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/recipes")
 class RecipeController{
     @Autowired
     lateinit var recipeService: RecipeService
@@ -21,45 +21,54 @@ class RecipeController{
         return "Welcome to DB Project"
     }
 
-    @GetMapping("/recipes")
+    @GetMapping("/all")
     fun getAllRecipes(): List<RecipeEntity> {
-        println("FUCK THIS")
         return recipeService.getAllRecipes()
     }
 
-    @PostMapping("/recipes/save")
+    @PostMapping("/save")
     fun createNewRecipe(@ModelAttribute recipe: RecipeEntity): RecipeEntity = recipeService.saveRecipe(recipe)
 
-    @GetMapping("/recipes/{recipeId}")
+    @GetMapping("/{recipeId}")
     fun getRecipe(@PathVariable recipeId: Long): Optional<RecipeEntity> = recipeService.getRecipeById(recipeId)
 
-
-    @GetMapping("/categories")
-    fun getAllCategories(): List<FoodCategoryEntity> {
-    return foodCategoryRepo.findAll()
+    @DeleteMapping("/delete")
+    fun deleteRecipe(@RequestParam( "id") recipeId: Long): ResponseEntity<Void> {
+        return recipeService.deleteRecipeById(recipeId).map { _  ->
+            ResponseEntity<Void>(HttpStatus.OK)
+        }.orElse(ResponseEntity.notFound().build())
     }
 
-
-
-//    @PostMapping("/addRecipe")
-//    fun createRecipe(@Valid @RequestBody recipe : RecipeEntity) : RecipeEntity = recipeRepo.save(recipe)
+    @PutMapping("/update/{recipeId}")
+    fun updateRecipe(@PathVariable recipeId: Long,
+            @RequestBody newRecipe: RecipeEntity): ResponseEntity<RecipeEntity>  {
+        val updatedRecipe: Optional<RecipeEntity> = recipeService.updateRecipeById(recipeId, newRecipe)
+        return updatedRecipe.map { updated ->
+            ResponseEntity.ok().body(updated)
+        }.orElse(ResponseEntity.notFound().build())
+    }
 
 //    @DeleteMapping("/recipes/deleteAll")
 //    fun deleteAllRecipes(): Unit =
 //        recipeService.deleteAllRciepes();
 
-    @GetMapping("/allIngredients")
-    fun getAllIngredients(): Any {
-        println("allIngredients")
-        return "Yay Ingredients"
-    }
 
-
+//    @GetMapping("/categories")
+//    fun getAllCategories(): List<FoodCategoryEntity> {
+//    return foodCategoryRepo.findAll()
+//    }
+//
+//
+//
+//    @GetMapping("/allIngredients")
+//    fun getAllIngredients(): Any {
+//        println("allIngredients")
+//        return "Yay Ingredients"
+//    }
 
     @ExceptionHandler(IllegalArgumentException::class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     fun handleIllegalArgumentError(e: IllegalArgumentException) = e.message
-
 
     @ExceptionHandler(RuntimeException::class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)

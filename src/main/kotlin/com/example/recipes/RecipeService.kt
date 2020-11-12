@@ -15,6 +15,25 @@ class RecipeService(
 
     fun getRecipeById(recipeId: Long): Optional<RecipeEntity> =  recipeRepo.findById(recipeId)
 
+    fun deleteRecipeById(recipeId: Long): Optional<Unit> {
+        return recipeRepo.findById(recipeId).map { recipe ->
+            recipeRepo.delete(recipe)
+        }
+    }
+
+    fun updateRecipeById(recipeId: Long, newRecipe: RecipeEntity): Optional<RecipeEntity> {
+        return recipeRepo.findById(recipeId).map { existingRecipe ->
+            val updatedRecipe: RecipeEntity = existingRecipe.copy(
+                title = if (newRecipe.title == "") existingRecipe.title else newRecipe.title,
+                description = if (newRecipe.description == "") existingRecipe.description else newRecipe.description,
+                prepTimeMinutes = if (newRecipe.prepTimeMinutes == null) existingRecipe.prepTimeMinutes else newRecipe.prepTimeMinutes,
+                cookTimeMinutes = if (newRecipe.cookTimeMinutes == null) existingRecipe.cookTimeMinutes else newRecipe.cookTimeMinutes,
+                readyInMinutes = if (newRecipe.readyInMinutes == null) existingRecipe.readyInMinutes else newRecipe.readyInMinutes,
+                servings = if (newRecipe.servings == null) existingRecipe.servings else newRecipe.servings)
+            recipeRepo.save(updatedRecipe)
+        }
+    }
+
 
 
 //    private fun entityListToDtoList(entityList: List<RecipeEntity>): List<RecipeDTO> {
