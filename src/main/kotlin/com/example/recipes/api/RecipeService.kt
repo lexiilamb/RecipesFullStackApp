@@ -22,7 +22,7 @@ class RecipeService(
         }
     }
 
-    fun deleteAllRciepes() {
+    fun deleteAllRecipes() {
         recipeRepo.deleteAll()
     }
 
@@ -33,28 +33,8 @@ class RecipeService(
                 description = if (newRecipe.description == "") existingRecipe.description else newRecipe.description,
                 prep_time_minutes = if (newRecipe.prep_time_minutes == null) existingRecipe.prep_time_minutes else newRecipe.prep_time_minutes,
                 cook_time_minutes = if (newRecipe.cook_time_minutes == null) existingRecipe.cook_time_minutes else newRecipe.cook_time_minutes,
-//                readyInMinutes = if (newRecipe.readyInMinutes == null) existingRecipe.readyInMinutes else newRecipe.readyInMinutes,
                 servings = if (newRecipe.servings == null) existingRecipe.servings else newRecipe.servings)
             recipeRepo.save(updatedRecipe)
         }
     }
-
-
-
-//    private fun entityListToDtoList(entityList: List<RecipeEntity>): List<RecipeDTO> {
-//
-//        return entityList.map { entityToDTO(it) }
-//    }
-//
-//    private fun entityToDTO(entity: RecipeEntity): RecipeDTO {
-//        return RecipeDTO(
-//            title = entity.title,
-//            description = entity.description,
-//            preTimeMinutes = entity.preTimeMinutes,
-//            cookTimeMinutes = entity.cookTimeMinutes,
-//            readyInMinutes = entity.readyInMinutes,
-//            servings = entity.servings,
-//            id = entity.id
-//        )
-//    }
 }
