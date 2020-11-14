@@ -1,5 +1,7 @@
-package com.example.recipes
+package com.example.recipes.api
 
+import com.example.recipes.models.RecipeEntity
+import com.example.recipes.repositories.FoodCategoryRepository
 import org.springframework.http.HttpStatus
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
@@ -41,16 +43,15 @@ class RecipeController{
 
     @PutMapping("/update/{recipeId}")
     fun updateRecipe(@PathVariable recipeId: Long,
-            @RequestBody newRecipe: RecipeEntity): ResponseEntity<RecipeEntity>  {
+            @ModelAttribute newRecipe: RecipeEntity): ResponseEntity<RecipeEntity>  {
         val updatedRecipe: Optional<RecipeEntity> = recipeService.updateRecipeById(recipeId, newRecipe)
         return updatedRecipe.map { updated ->
             ResponseEntity.ok().body(updated)
         }.orElse(ResponseEntity.notFound().build())
     }
 
-//    @DeleteMapping("/recipes/deleteAll")
-//    fun deleteAllRecipes(): Unit =
-//        recipeService.deleteAllRciepes();
+    @DeleteMapping("/recipes/deleteAll")
+    fun deleteAllRecipes() = recipeService.deleteAllRciepes();
 
 
 //    @GetMapping("/categories")

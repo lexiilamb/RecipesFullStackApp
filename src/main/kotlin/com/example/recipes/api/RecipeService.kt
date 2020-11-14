@@ -1,8 +1,9 @@
-package com.example.recipes
+package com.example.recipes.api
 
+import com.example.recipes.models.RecipeEntity
+import com.example.recipes.repositories.RecipeRepository
 import org.springframework.stereotype.Service
 import java.util.*
-import javax.persistence.Id
 
 @Service
 class RecipeService(
@@ -21,14 +22,18 @@ class RecipeService(
         }
     }
 
+    fun deleteAllRciepes() {
+        recipeRepo.deleteAll()
+    }
+
     fun updateRecipeById(recipeId: Long, newRecipe: RecipeEntity): Optional<RecipeEntity> {
         return recipeRepo.findById(recipeId).map { existingRecipe ->
             val updatedRecipe: RecipeEntity = existingRecipe.copy(
                 title = if (newRecipe.title == "") existingRecipe.title else newRecipe.title,
                 description = if (newRecipe.description == "") existingRecipe.description else newRecipe.description,
-                prepTimeMinutes = if (newRecipe.prepTimeMinutes == null) existingRecipe.prepTimeMinutes else newRecipe.prepTimeMinutes,
-                cookTimeMinutes = if (newRecipe.cookTimeMinutes == null) existingRecipe.cookTimeMinutes else newRecipe.cookTimeMinutes,
-                readyInMinutes = if (newRecipe.readyInMinutes == null) existingRecipe.readyInMinutes else newRecipe.readyInMinutes,
+                prep_time_minutes = if (newRecipe.prep_time_minutes == null) existingRecipe.prep_time_minutes else newRecipe.prep_time_minutes,
+                cook_time_minutes = if (newRecipe.cook_time_minutes == null) existingRecipe.cook_time_minutes else newRecipe.cook_time_minutes,
+//                readyInMinutes = if (newRecipe.readyInMinutes == null) existingRecipe.readyInMinutes else newRecipe.readyInMinutes,
                 servings = if (newRecipe.servings == null) existingRecipe.servings else newRecipe.servings)
             recipeRepo.save(updatedRecipe)
         }

@@ -1,6 +1,6 @@
-package com.example.recipes
+package com.example.recipes.repositories
 
-import org.springframework.data.repository.CrudRepository
+import com.example.recipes.models.RecipeEntity
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 
