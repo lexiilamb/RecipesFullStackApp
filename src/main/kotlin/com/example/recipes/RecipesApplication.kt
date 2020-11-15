@@ -1,9 +1,10 @@
 package com.example.recipes
 
+import com.example.recipes.models.FoodCategoryCalls
+import com.example.recipes.models.RecipeCalls
 import java.sql.Connection
 import java.sql.DriverManager
 import java.util.*
-
 
 private const val SCHEMA = "recipesdb"
 private val recipesTable = listOf("recipes",
@@ -82,6 +83,9 @@ private val tables = listOf(
 	utensilsTable
 )
 
+val recipeCalls = RecipeCalls()
+val categoryCalls = FoodCategoryCalls()
+
 fun main(args: Array<String>) {
 	val properties = Properties()
 
@@ -91,47 +95,33 @@ fun main(args: Array<String>) {
 		put("password", "root")
 	}
 
-
 	//Open a connection to the database
 	DriverManager
 		.getConnection("jdbc:mysql://localhost:3306/recipesdb", properties)
 		.use { connection ->
 			prepareTable(connection)
-			insertRecipes(connection)
-			queryRecipes(connection)
+			insertData(connection)
+			query(connection)
 		}
 }
 
-private fun queryRecipes(connection: Connection) {
+private fun insertData(connection: Connection) {
 	tables.forEach { table ->
-		val sql = "SELECT * FROM $SCHEMA.${table[0]}"
-		val rs = connection.createStatement().executeQuery(sql)
-		while (rs.next()) {
-			println("Id: ${rs.getInt("recipe_id")}\t" +
-				"Title: ${rs.getString("title")}\t" +
-				"Description: ${rs.getString("description")}")
+		when (table[0]) {
+			"recipes" -> recipeCalls.insertRecipes(table[0], connection)
+			"food_categories" -> categoryCalls.insertCategories(table[0], connection)
 		}
 	}
+
+//	recipeCalls.insertRecipes(tables[0][0], connection)
 }
 
-private fun insertRecipes(connection: Connection) {
-	insertRow(connection, "'pho'", "'chicken'", 10, 40, 4)
-	insertRow(connection, "'pie'", "'pumpkin'", 5, 60, 1)
-	insertRow(connection, "'mac&cheese'", "'super cheesy'", 5, 10, 8)
-}
-
-private fun insertRow(connection: Connection,
-					  title: String,
-					  description: String,
-					  prep_time_minutes: Int,
-					  cook_time_mintues: Int,
-					  servings: Int) {
-
-	connection.setAutoCommit(false);
-	val sql = "insert into recipes (title, description, prep_time_minutes, cook_time_minutes, servings) values ($title, $description, $prep_time_minutes, $cook_time_mintues, $servings);"
-	with(connection) {
-		createStatement().execute(sql)
-		connection.commit()
+private fun query(connection: Connection) {
+	tables.forEach { table ->
+		when (table[0]) {
+			"recipes" -> recipeCalls.queryRecipes(SCHEMA, table[0], connection)
+			"food_categories" -> categoryCalls.queryCategories(SCHEMA, table[0], connection)
+		}
 	}
 }
 
