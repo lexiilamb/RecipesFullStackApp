@@ -1,14 +1,16 @@
-package com.example.recipes.models
+package com.example.recipes.functions
 
 import java.sql.Connection
 
 class RecipeCalls {
-    fun queryRecipes(SCHEMA: String, table: String, connection: Connection) {
+    fun queryRecipes(SCHEMA: String, table: String, connection: Connection): Unit {
         val sql = "SELECT * FROM $SCHEMA.${table}"
         val rs = connection.createStatement().executeQuery(sql)
+
+        println("\n\nRECIPE TABLE:")
         while (rs.next()) {
-            println("Id: ${rs.getInt("recipe_id")}\t\t" +
-                "Title: ${rs.getString("title")}\t\t" +
+            return println("Id: ${rs.getInt("recipe_id")}\t\t" +
+                "Title: ${rs.getString("title")}\t\t\t" +
                 "Description: ${rs.getString("description")}\t\t" +
                 "Prep Time: ${rs.getInt("prep_time_minutes")}\t\t" +
                 "Cook Time: ${rs.getInt("cook_time_minutes")}\t\t" +
