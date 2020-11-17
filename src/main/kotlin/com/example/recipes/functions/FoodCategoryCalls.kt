@@ -3,16 +3,24 @@ package com.example.recipes.functions
 import java.sql.Connection
 
 class FoodCategoryCalls {
-    fun queryCategories(SCHEMA: String, table: String, connection: Connection): Unit {
+
+    fun queryCategories(SCHEMA: String, table: String, connection: Connection): ArrayList<List<String>> {
+        var resultList = ArrayList<List<String>>()
+        var item = emptyList<String>()
+
         val sql = "SELECT * FROM $SCHEMA.${table}"
         val rs = connection.createStatement().executeQuery(sql)
 
-        println("\n\nCATEGORIES TABLE:")
+        resultList.add(listOf("TABLE CATEGORIES:"))
         while (rs.next()) {
-            return println("Id: ${rs.getInt("food_category_id")}\t\t" +
-                "Category: ${rs.getString("category")}\t\t\t" +
-                "Recipe Id: ${rs.getInt("recipe_id")}")
+            item = listOf("Id: ${rs.getInt("food_category_id")}",
+            "Category: ${rs.getString("category")}",
+            "Recipe Id: ${rs.getInt("recipe_id")}")
+
+            resultList.add(item)
         }
+
+        return resultList
     }
     
     fun insertCategories(table: String, connection: Connection) {

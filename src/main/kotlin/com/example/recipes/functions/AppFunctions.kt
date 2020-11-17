@@ -3,6 +3,7 @@ package com.example.recipes.functions
 import java.sql.Connection
 import java.sql.DriverManager
 import java.util.*
+import kotlin.collections.ArrayList
 
 class AppFunctions {
     private val SCHEMA = "recipesdb"
@@ -99,7 +100,7 @@ class AppFunctions {
     val recipeCalls = RecipeCalls()
     val categoryCalls = FoodCategoryCalls()
 
-    fun displayTables(): String {
+    fun displayTables(): ArrayList<List<String>> {
         val properties = Properties()
 
         //Populate the properties file with user name and password
@@ -125,22 +126,21 @@ class AppFunctions {
                 "food_categories" -> categoryCalls.insertCategories(table[0], connection)
             }
         }
-
-//	recipeCalls.insertRecipes(tables[0][0], connection)
     }
 
-    private fun query(connection: Connection): String {
+    private fun query(connection: Connection):ArrayList<List<String>> {
+        var result = ArrayList<List<String>>()
         tables.forEach { table ->
-            return when (table[0]) {
-                "recipes" -> recipeCalls.queryRecipes(SCHEMA, table[0], connection).toString()
-                "food_categories" -> categoryCalls.queryCategories(SCHEMA, table[0], connection).toString()
+            when (table[0]) {
+                "recipes" -> result.addAll(recipeCalls.queryRecipes(SCHEMA, table[0], connection))
+                "food_categories" -> result.addAll(categoryCalls.queryCategories(SCHEMA, table[0], connection))
                 else -> {
-                    return "No tables in db"
+                    result.add(listOf("No query found"))
                 }
             }
         }
 
-        return "No tables"
+        return result
     }
 
     private fun prepareTable(connection: Connection) {
