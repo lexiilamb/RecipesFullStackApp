@@ -8,8 +8,8 @@ data class RecipeEntity(
 
     var title: String = "",
     var description: String? = "",
-    var prep_time_minutes: Int? = null,
-    var cook_time_minutes: Int? = null,
+    var prep_time: Int? = null,
+    var cook_time: Int? = null,
     var servings: Int? = null,
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) var recipe_id: Long? = null
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) var recipe_id: Int? = null
 )

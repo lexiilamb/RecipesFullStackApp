@@ -2,6 +2,7 @@ package com.example.recipes.api
 
 import com.example.recipes.RecipesApplication
 import com.example.recipes.functions.AppFunctions
+import com.example.recipes.models.RecipeEntity
 import org.springframework.http.HttpStatus
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
@@ -13,7 +14,7 @@ import org.springframework.ui.Model
 import org.springframework.ui.set
 
 @RestController
-@RequestMapping("/recipes")
+@RequestMapping("/")
 class AppController{
 
    val app = AppFunctions()
@@ -25,10 +26,15 @@ class AppController{
 //    }
 
     @GetMapping
-    fun allTables(): ArrayList<List<String>> {
-
-        return app.displayTables()
+    fun allTables() {
+        app.createTables()
     }
+
+     @GetMapping("/recipes")
+     fun getAllRecipes(): List<RecipeEntity> {
+      app.createTables()
+      return app.queryRecipes()
+     }
 
 
     @ExceptionHandler(IllegalArgumentException::class)

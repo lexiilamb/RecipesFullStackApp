@@ -1,5 +1,6 @@
 package com.example.recipes.functions
 
+import com.example.recipes.models.RecipeEntity
 import java.sql.Connection
 import java.sql.DriverManager
 import java.util.*
@@ -13,8 +14,8 @@ class AppFunctions {
 		recipe_id int not null auto_increment,
 		title varchar(255) not null,
 		description varchar(255),
-		prep_time_minutes integer,
-		cook_time_minutes integer,
+		prep_time integer,
+		cook_time integer,
 		servings integer,
 		last_made date,
 		primary key (recipe_id)
@@ -100,7 +101,7 @@ class AppFunctions {
     val recipeCalls = RecipeCalls()
     val categoryCalls = FoodCategoryCalls()
 
-    fun displayTables(): ArrayList<List<String>> {
+    fun createTables() {
         val properties = Properties()
 
         //Populate the properties file with user name and password
@@ -109,13 +110,19 @@ class AppFunctions {
             put("password", "root")
         }
 
+        //Reset database
+        DriverManager
+            .getConnection("jdbc:mysql://localhost:3306/recipesdb", properties)
+            .use { connection ->
+                restartDatabase(connection)
+            }
+
         //Open a connection to the database
         DriverManager
             .getConnection("jdbc:mysql://localhost:3306/recipesdb", properties)
             .use { connection ->
                 prepareTable(connection)
                 insertData(connection)
-                return query(connection)
             }
     }
 
@@ -126,21 +133,6 @@ class AppFunctions {
                 "food_categories" -> categoryCalls.insertCategories(table[0], connection)
             }
         }
-    }
-
-    private fun query(connection: Connection):ArrayList<List<String>> {
-        var result = ArrayList<List<String>>()
-        tables.forEach { table ->
-            when (table[0]) {
-                "recipes" -> result.addAll(recipeCalls.queryRecipes(SCHEMA, table[0], connection))
-                "food_categories" -> result.addAll(categoryCalls.queryCategories(SCHEMA, table[0], connection))
-                else -> {
-                    result.add(listOf("No query found"))
-                }
-            }
-        }
-
-        return result
     }
 
     private fun prepareTable(connection: Connection) {
@@ -186,5 +178,64 @@ class AppFunctions {
             //Commit the change to the database
             connection.commit()
         }
+    }
+
+    private fun restartDatabase(connection: Connection) {
+        connection.setAutoCommit(false);
+
+        //SQL statement to create a table
+        var sql = "DROP SCHEMA $SCHEMA"
+
+        with(connection) {
+            //Get and instance of statement from the connection and use
+            //the execute() method to execute the sql
+            createStatement().execute(sql)
+
+            //Commit the change to the database
+            connection.commit()
+        }
+
+        sql = "CREATE SCHEMA $SCHEMA"
+
+        with(connection) {
+            //Get and instance of statement from the connection and use
+            //the execute() method to execute the sql
+            createStatement().execute(sql)
+
+            //Commit the change to the database
+            connection.commit()
+        }
+    }
+
+//    private fun query(connection: Connection):ArrayList<List<String>> {
+//        var result = ArrayList<List<String>>()
+//        tables.forEach { table ->
+//            when (table[0]) {
+//                "recipes" -> result.addAll(recipeCalls.queryRecipes(SCHEMA, table[0], connection))
+//                "food_categories" -> result.addAll(categoryCalls.queryCategories(SCHEMA, table[0], connection))
+//                else -> {
+//                    result.add(listOf("No query found"))
+//                }
+//            }
+//        }
+//
+//        return result
+//    }
+
+    fun queryRecipes(): List<RecipeEntity> {
+        val properties = Properties()
+
+        //Populate the properties file with user name and password
+        with(properties) {
+            put("user", "root")
+            put("password", "root")
+        }
+
+        //Open a connection to the database
+        DriverManager
+            .getConnection("jdbc:mysql://localhost:3306/recipesdb", properties)
+            .use { connection ->
+                return recipeCalls.queryRecipes(SCHEMA, connection)
+            }
     }
 }

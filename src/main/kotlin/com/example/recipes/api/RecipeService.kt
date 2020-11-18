@@ -34,8 +34,8 @@ class RecipeService(
 //            val updatedRecipe: RecipeEntity = existingRecipe.copy(
 //                title = if (newRecipe.title == "") existingRecipe.title else newRecipe.title,
 //                description = if (newRecipe.description == "") existingRecipe.description else newRecipe.description,
-//                prep_time_minutes = if (newRecipe.prep_time_minutes == null) existingRecipe.prep_time_minutes else newRecipe.prep_time_minutes,
-//                cook_time_minutes = if (newRecipe.cook_time_minutes == null) existingRecipe.cook_time_minutes else newRecipe.cook_time_minutes,
+//                prep_time = if (newRecipe.prep_time == null) existingRecipe.prep_time else newRecipe.prep_time,
+//                cook_time = if (newRecipe.cook_time == null) existingRecipe.cook_time else newRecipe.cook_time,
 //                servings = if (newRecipe.servings == null) existingRecipe.servings else newRecipe.servings)
 //            recipeRepo.save(updatedRecipe)
 //        }
