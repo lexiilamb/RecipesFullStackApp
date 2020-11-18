@@ -13,7 +13,6 @@ export class RecipeService {
   }
 
   getRecipes(): Observable<any> {
-    console.log('here: '+ this.http.get(`${this.url}`))
     return this.http.get(`${this.url}`);
   }
 

@@ -10,7 +10,6 @@ class RecipeCalls {
         val sql = "SELECT * FROM $SCHEMA.recipes"
         val rs = connection.createStatement().executeQuery(sql)
 
-//        resultList.add(listOf("TABLE RECIPES:"))
         while (rs.next()) {
            var recipe = RecipeEntity( recipe_id = rs.getInt("recipe_id"),
                title = rs.getString("title"),
