@@ -16,15 +16,15 @@ export class AppComponent implements OnInit {
   constructor(private router: Router, private recipeService: RecipeService) {
   }
 
-  getRecipes() {
-    this.recipeService.getRecipes().subscribe(data => {
-      this.recipes = data;
-    });
-  }
+  // getRecipes() {
+  //   this.recipeService.getRecipes().subscribe(data => {
+  //     this.recipes = data;
+  //   });
+  // }
 
-  ngOnInit(): void {
-    this.router.events.subscribe(value => {
-      this.getRecipes();
-    });
+  ngOnInit() {
+    // this.router.events.subscribe(value => {
+    //   this.getRecipes();
+    // });
   }
 }

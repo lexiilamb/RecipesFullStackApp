@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {Router} from "@angular/router"
+import { Recipe } from '../../models/recipes';
+import {RouterModule, Router} from "@angular/router"
 import { RecipeService } from '../recipe-service.service';
 
 @Component({
@@ -11,10 +12,18 @@ export class DisplayAllRecipesComponent implements OnInit {
 
   constructor(private router: Router, private recipeService: RecipeService) { }
 
-  recipes: String[]
+  recipes: Recipe[];
+
+    getRecipes() {
+      this.recipeService.getRecipes().subscribe(data => {
+        this.recipes = data;
+      });
+    }
 
   ngOnInit() {
-    this.recipeService.getRecipes().subscribe(data => this.recipes = data)
+    this.router.events.subscribe(value => {
+      this.getRecipes();
+    });
   }
 
 }

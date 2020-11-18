@@ -1,31 +1,5 @@
 <div align='center'><h1>Recipes Database</h1></div>
 
-<div>
-  <table class="table" style="width: 80%">
-    <tr>
-      <th>Title</th>
-      <th>Description</th>
-      <th>Prep Time</th>
-      <th>Cook Time</th>
-      <th>Servings</th>
-    </tr>
-    <tr align="center" *ngFor="let recipe of recipes">
-      <td>
-        {{recipe.title}}
-      </td>
-      <td>
-        {{recipe.description}}
-      </td>
-      <td>
-        {{recipe.prep_time}}
-      </td>
-      <td>
-        {{recipe.cook_time}}
-      </td>
-      <td>
-        {{recipe.servings}}
-      </td>
-    </tr>
-  </table>
-</div>
+<button class="nav-link" routerLink="/app-display-all-recipes">Show all recipes</button>
+
 <router-outlet></router-outlet>
