@@ -7,7 +7,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class AppFunctions {
-    private val SCHEMA = "recipesdb"
+    val SCHEMA = "recipesdb"
     private val recipesTable = listOf("recipes",
         """
 		create table recipes (
@@ -129,8 +129,8 @@ class AppFunctions {
     private fun insertData(connection: Connection) {
         tables.forEach { table ->
             when (table[0]) {
-                "recipes" -> recipeCalls.insertRecipes(table[0], connection)
-                "food_categories" -> categoryCalls.insertCategories(table[0], connection)
+                "recipes" -> recipeCalls.insertRecipes(connection)
+                "food_categories" -> categoryCalls.insertCategories(connection)
             }
         }
     }
@@ -205,37 +205,5 @@ class AppFunctions {
             //Commit the change to the database
             connection.commit()
         }
-    }
-
-//    private fun query(connection: Connection):ArrayList<List<String>> {
-//        var result = ArrayList<List<String>>()
-//        tables.forEach { table ->
-//            when (table[0]) {
-//                "recipes" -> result.addAll(recipeCalls.queryRecipes(SCHEMA, table[0], connection))
-//                "food_categories" -> result.addAll(categoryCalls.queryCategories(SCHEMA, table[0], connection))
-//                else -> {
-//                    result.add(listOf("No query found"))
-//                }
-//            }
-//        }
-//
-//        return result
-//    }
-
-    fun queryRecipes(): List<RecipeEntity> {
-        val properties = Properties()
-
-        //Populate the properties file with user name and password
-        with(properties) {
-            put("user", "root")
-            put("password", "root")
-        }
-
-        //Open a connection to the database
-        DriverManager
-            .getConnection("jdbc:mysql://localhost:3306/recipesdb", properties)
-            .use { connection ->
-                return recipeCalls.queryRecipes(SCHEMA, connection)
-            }
     }
 }

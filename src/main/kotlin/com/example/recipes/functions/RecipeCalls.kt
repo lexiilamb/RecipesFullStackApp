@@ -24,15 +24,15 @@ class RecipeCalls {
         return resultList
     }
 
-    fun insertRecipes(table: String, connection: Connection) {
-        insertRow(table, connection, "'Good Pho'", "'chicken'", 10, 40, 4)
-        insertRow(table, connection, "'Good Pie'", "'pumpkin'", 5, 60, 1)
-        insertRow(table, connection, "'mac&cheese'", "'super cheesy'", 5, 10, 8)
-        insertRow(table, connection, "'Perogies'", "'with potatoes'", 5, 15, 1)
-        insertRow(table, connection, "'THIS'", "'IS STUPID'", 5, 15, 1)
+    fun insertRecipes(connection: Connection) {
+        insertRow(connection, "'Good Pho'", "'chicken'", 10, 40, 4)
+        insertRow(connection, "'Good Pie'", "'pumpkin'", 5, 60, 1)
+        insertRow(connection, "'mac&cheese'", "'super cheesy'", 5, 10, 8)
+        insertRow(connection, "'Perogies'", "'with potatoes'", 5, 15, 1)
+        insertRow(connection, "'THIS'", "'IS STUPID'", 5, 15, 1)
     }
 
-    fun insertRow(table: String, connection: Connection,
+    fun insertRow(connection: Connection,
                   title: String,
                   description: String,
                   prep_time: Int,
@@ -40,7 +40,7 @@ class RecipeCalls {
                   servings: Int) {
 
         connection.setAutoCommit(false);
-        val sql = "insert into $table (title, description, prep_time, cook_time, servings) values ($title, $description, $prep_time, $cook_time, $servings);"
+        val sql = "insert into recipes (title, description, prep_time, cook_time, servings) values ($title, $description, $prep_time, $cook_time, $servings);"
         with(connection) {
             createStatement().execute(sql)
             connection.commit()

@@ -23,23 +23,23 @@ class FoodCategoryCalls {
         return resultList
     }
     
-    fun insertCategories(table: String, connection: Connection) {
-        insertRow(table, connection, "'Baking'", 1)
-        insertRow(table, connection, "'Beef'", 1)
-        insertRow(table, connection, "'Breakfast'", 1)
-        insertRow(table, connection, "'Chicken'", 1)
-        insertRow(table, connection, "'Soup'", 1)
-        insertRow(table, connection, "'Dessert'", 1)
-        insertRow(table, connection, "'Muffins'", 1)
-        insertRow(table, connection, "'Pork'", 1)
+    fun insertCategories(connection: Connection) {
+        insertRow(connection, "'Baking'", 1)
+        insertRow(connection, "'Beef'", 1)
+        insertRow(connection, "'Breakfast'", 1)
+        insertRow(connection, "'Chicken'", 1)
+        insertRow(connection, "'Soup'", 1)
+        insertRow(connection, "'Dessert'", 1)
+        insertRow(connection, "'Muffins'", 1)
+        insertRow(connection, "'Pork'", 1)
     }
 
-    fun insertRow(table: String, connection: Connection,
+    fun insertRow(connection: Connection,
                   category: String,
                   recipeId: Int) {
 
         connection.setAutoCommit(false);
-        val sql = "insert into $table (category, recipe_id) values ($category, $recipeId);"
+        val sql = "insert into food_categories (category, recipe_id) values ($category, $recipeId);"
         with(connection) {
             createStatement().execute(sql)
             connection.commit()

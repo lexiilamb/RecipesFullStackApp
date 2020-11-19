@@ -1,4 +1,4 @@
-export class Recipe {
+export class RecipeEntity {
     title: string;
     description: string;
     prep_time: number;

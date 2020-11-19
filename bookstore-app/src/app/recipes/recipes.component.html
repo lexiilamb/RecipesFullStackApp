@@ -1,0 +1,53 @@
+<div class="col-md-6 user-container">
+  <h2 class="text-center">Recipes</h2>
+</div>
+<div>
+  <table class="table" style="width: 80%">
+    <tr>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Prep Time</th>
+      <th>Cook Time</th>
+      <th>Servings</th>
+    </tr>
+    <tr align="center" *ngFor="let recipe of recipes">
+      <td>
+        {{recipe.title}}
+      </td>
+      <td>
+        {{recipe.description}}
+      </td>
+      <td>
+        {{recipe.prep_time}}
+      </td>
+      <td>
+        {{recipe.cook_time}}
+      </td>
+      <td>
+        {{recipe.servings}}
+      </td>
+    </tr>
+  </table>
+</div>
+
+<div class="col-md-6 user-container">
+  <h2 class="text-center">Add Recipe</h2>
+      <label>Title:</label>
+      <input [(ngModel)]="title" placeholder="title"
+              id="title">
+    <br/>
+      <label>Description:</label>
+      <input [(ngModel)]="description" placeholder="description"
+              id="description">
+      <label>Prep Time:</label>
+      <input [(ngModel)]="prep_time" placeholder="prep_time" name="prep_time"
+              id="prep_time">
+      <label>Cook Time:</label>
+      <input [(ngModel)]="cook_time" placeholder="cook_time" name="cook_time"
+              id="cook_time">
+      <label>Servings:</label>
+      <input [(ngModel)]="servings" placeholder="servings" name="servings"
+              id="servings">
+    <br/>
+    <button class="btn btn-success" (click)="saveRecipe()">Add</button>
+</div>

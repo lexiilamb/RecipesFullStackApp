@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DisplayAllRecipesComponent } from './display-all-recipes.component';
+import { DisplayAllRecipesComponent } from './recipes.component';
 
 describe('DisplayAllRecipesComponent', () => {
   let component: DisplayAllRecipesComponent;

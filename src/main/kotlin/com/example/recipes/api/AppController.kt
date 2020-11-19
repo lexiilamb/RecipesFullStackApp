@@ -1,23 +1,18 @@
 package com.example.recipes.api
 
-import com.example.recipes.RecipesApplication
 import com.example.recipes.functions.AppFunctions
+import com.example.recipes.functions.Queries
 import com.example.recipes.models.RecipeEntity
 import org.springframework.http.HttpStatus
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.bind.annotation.GetMapping
-import java.util.*
-import kotlin.collections.ArrayList
-import org.springframework.ui.Model
-import org.springframework.ui.set
 
 @RestController
 @RequestMapping("/")
 class AppController{
 
    val app = AppFunctions()
+   val queries = Queries()
 
 //    fun blog(model: Model): ArrayList<List<String>> {
 //     model["title"] = "Blog"
@@ -32,9 +27,19 @@ class AppController{
 
      @GetMapping("/recipes")
      fun getAllRecipes(): List<RecipeEntity> {
-      app.createTables()
-      return app.queryRecipes()
+//      app.createTables()
+      return queries.getAllRecipes()
      }
+
+     @GetMapping("/addRecipe")
+     fun addRecipe() {
+      queries.addRecipe()
+     }
+
+      @GetMapping("/deleteRecipe")
+      fun deleteRecipe() {
+       queries.deleteRecipe(6)
+      }
 
 
     @ExceptionHandler(IllegalArgumentException::class)

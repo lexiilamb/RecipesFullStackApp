@@ -1,11 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { DisplayAllRecipesComponent } from './recipes/display-all-recipes/display-all-recipes.component';
+import { AppComponent } from './app.component';
+import { CategoriesComponent } from './categories/categories.component';
+import { RecipesComponent } from './recipes/recipes.component';
 
 
 const routes: Routes = [
-  {path: 'app-display-all-recipes', pathMatch: 'full', component: DisplayAllRecipesComponent}
-  // {path: '', redirectTo: 'app-display-all-recipes', pathMatch: 'full'}
+  {path: 'recipes', pathMatch: 'full', component: RecipesComponent},
+  {path: 'categories', pathMatch: 'full', component: CategoriesComponent}
 ];
 
 @NgModule({

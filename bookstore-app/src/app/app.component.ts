@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import { Recipe } from './models/recipes';
-import { RecipeService } from './recipes/recipe-service.service';
-import {Router} from "@angular/router";
+import { RecipeService } from './recipe-service.service';
+import {Router, ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-root',
@@ -10,21 +9,22 @@ import {Router} from "@angular/router";
 })
 export class AppComponent implements OnInit {
   title = 'RecipesDB';
-  recipes: Recipe[];
+  recipes;
 
 
-  constructor(private router: Router, private recipeService: RecipeService) {
+  constructor(private router: Router, private route: ActivatedRoute, private recipeService: RecipeService) {
   }
 
-  // getRecipes() {
-  //   this.recipeService.getRecipes().subscribe(data => {
-  //     this.recipes = data;
-  //   });
-  // }
+  getRecipes() {
+    this.recipeService.getRecipes().subscribe(data => {
+      this.recipes = data;
+    });
+  }
 
   ngOnInit() {
-    // this.router.events.subscribe(value => {
-    //   this.getRecipes();
-    // });
+    this.route.paramMap.subscribe(data => {
+      this.recipes = data;
+      console.log(this.recipes)
+    });
   }
 }
