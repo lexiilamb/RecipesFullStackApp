@@ -1,10 +1,8 @@
 package com.example.recipes.functions
 
-import com.example.recipes.models.RecipeEntity
 import java.sql.Connection
 import java.sql.DriverManager
 import java.util.*
-import kotlin.collections.ArrayList
 
 class AppFunctions {
     val SCHEMA = "recipesdb"
@@ -127,12 +125,8 @@ class AppFunctions {
     }
 
     private fun insertData(connection: Connection) {
-        tables.forEach { table ->
-            when (table[0]) {
-                "recipes" -> recipeCalls.insertRecipes(connection)
-                "food_categories" -> categoryCalls.insertCategories(connection)
-            }
-        }
+        recipeCalls.insertRecipes(connection)
+        categoryCalls.insertCategories(connection)
     }
 
     private fun prepareTable(connection: Connection) {

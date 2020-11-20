@@ -1,3 +1,51 @@
 <div class="col-md-6 user-container">
     <h2 class="text-center">Categories</h2>
-</div>
+  </div>
+  <div>
+    <table class="table" style="width: 80%">
+      <tr>
+        <th>ID</th>
+        <th>Category</th>
+        <th>Recipe ID</th>
+      </tr>
+      <tr align="center" *ngFor="let category of tableData">
+        <td>
+          {{category.food_category_id}}
+        </td>
+        <td>
+          {{category.category}}
+        </td>
+        <td>
+          {{category.recipe_id}}
+        </td>
+      </tr>
+    </table>
+  </div>
+  
+  <div class="col-md-6 user-container">
+    <h2 class="text-center">Add Category</h2>
+    <form [formGroup]="addForm" (ngSubmit)="save()">
+      <div class="form-group">
+        <label>Category:</label>
+        <input formControlName="category" placeholder="Category"
+                id="category">
+      </div>
+      <br/>
+  
+      <div class="form-group">
+        <label>Recipe ID:</label>
+        <input formControlName="recipe_id" placeholder="Recipe ID"
+                id="recipe_id">
+      </div>
+      <br/>
+  
+      <button class="btn btn-success" type="submit">Add Category</button> 
+      <p>{{saveResponse}}</p>
+    </form>
+  </div>
+  
+  <h2 class="text-center">Delete Category</h2>
+  <input type="text" placeholder="Enter Category Id" [(ngModel)] = 'deleteId' />
+  <br/>
+  <button (click)="delete()">Delete</button>
+  <p>{{deleteResponse}}</p>

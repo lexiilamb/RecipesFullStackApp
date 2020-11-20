@@ -8,5 +8,5 @@ data class FoodCategoryEntity(
 
     val category: String = "",
     val recipe_id: Int? = null,
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) val food_category_id: Long? = null
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) val food_category_id: Int? = null
 )

@@ -11,7 +11,7 @@
       <th>Cook Time</th>
       <th>Servings</th>
     </tr>
-    <tr align="center" *ngFor="let recipe of recipes">
+    <tr align="center" *ngFor="let recipe of tableData">
       <td>
         {{recipe.recipe_id}}
       </td>
@@ -36,7 +36,7 @@
 
 <div class="col-md-6 user-container">
   <h2 class="text-center">Add Recipe</h2>
-  <form [formGroup]="addForm" (ngSubmit)="saveRecipe()">
+  <form [formGroup]="addForm" (ngSubmit)="save()">
     <div class="form-group">
       <label>Title:</label>
       <input formControlName="title" placeholder="Title"
@@ -80,5 +80,5 @@
 <h2 class="text-center">Delete Recipe</h2>
 <input type="text" placeholder="Enter Recipe Id" [(ngModel)] = 'deleteId' />
 <br/>
-<button (click)="deleteRecipe()">Delete</button>
+<button (click)="delete()">Delete</button>
 <p>{{deleteResponse}}</p>

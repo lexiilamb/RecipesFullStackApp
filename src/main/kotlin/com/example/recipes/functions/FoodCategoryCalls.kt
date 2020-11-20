@@ -1,23 +1,28 @@
 package com.example.recipes.functions
 
+import com.example.recipes.models.FoodCategoryEntity
 import java.sql.Connection
+import java.sql.DriverManager
+import java.util.*
+import kotlin.collections.ArrayList
 
 class FoodCategoryCalls {
+    val SCHEMA = "recipesdb"
+    val tableName = "food_categories"
+    val tupleId = "food_category_id"
 
-    fun queryCategories(SCHEMA: String, table: String, connection: Connection): ArrayList<List<String>> {
-        var resultList = ArrayList<List<String>>()
-        var item = emptyList<String>()
+    fun queryCategories(SCHEMA: String, connection: Connection): List<FoodCategoryEntity> {
+        var resultList = ArrayList<FoodCategoryEntity>()
 
-        val sql = "SELECT * FROM $SCHEMA.${table}"
+        val sql = "SELECT * FROM $SCHEMA.$tableName"
         val rs = connection.createStatement().executeQuery(sql)
 
-        resultList.add(listOf("TABLE CATEGORIES:"))
         while (rs.next()) {
-            item = listOf("Id: ${rs.getInt("food_category_id")}",
-            "Category: ${rs.getString("category")}",
-            "Recipe Id: ${rs.getInt("recipe_id")}")
+            var tuple = FoodCategoryEntity(food_category_id = rs.getInt("food_category_id"),
+                category = rs.getString("category"),
+                recipe_id = rs.getInt("recipe_id"))
 
-            resultList.add(item)
+            resultList.add(tuple)
         }
 
         return resultList
@@ -36,14 +41,71 @@ class FoodCategoryCalls {
 
     fun insertRow(connection: Connection,
                   category: String,
-                  recipeId: Int) {
+                  recipeId: Int?) {
 
         connection.setAutoCommit(false);
-        val sql = "insert into food_categories (category, recipe_id) values ($category, $recipeId);"
+        val sql = "insert into $tableName (category, recipe_id) values ($category, $recipeId);"
         with(connection) {
             createStatement().execute(sql)
             connection.commit()
         }
     }
 
+    fun getAllCategories(): List<FoodCategoryEntity> {
+        val properties = Properties()
+
+        //Populate the properties file with user name and password
+        with(properties) {
+            put("user", "root")
+            put("password", "root")
+        }
+
+        //Open a connection to the database
+        DriverManager
+            .getConnection("jdbc:mysql://localhost:3306/recipesdb", properties)
+            .use { connection ->
+                return queryCategories(SCHEMA, connection)
+            }
+    }
+
+    fun saveCategory(newCategory: FoodCategoryEntity) {
+        val properties = Properties()
+
+        //Populate the properties file with user name and password
+        with(properties) {
+            put("user", "root")
+            put("password", "root")
+        }
+
+        //Open a connection to the database
+        DriverManager
+            .getConnection("jdbc:mysql://localhost:3306/recipesdb", properties)
+            .use { connection ->
+                insertRow(connection,
+                    "'${newCategory.category}'",
+                    newCategory.recipe_id)
+            }
+    }
+
+    fun deleteCategory(id: Int) {
+        val properties = Properties()
+
+        //Populate the properties file with user name and password
+        with(properties) {
+            put("user", "root")
+            put("password", "root")
+        }
+
+        //Open a connection to the database
+        DriverManager
+            .getConnection("jdbc:mysql://localhost:3306/recipesdb", properties)
+            .use { connection ->
+                connection.setAutoCommit(false);
+                val sql = "delete from $tableName where $tupleId = $id;"
+                with(connection) {
+                    createStatement().execute(sql)
+                    connection.commit()
+                }
+            }
+    }
 }

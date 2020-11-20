@@ -21,8 +21,8 @@ export class RecipeService {
     return this.http.get(`${this.url}/recipes`);
   }
 
-  saveRecipe(recipe: FormGroup): Observable<any> {
-    return this.http.post(`${this.url}/recipes`, recipe);
+  saveRecipe(form: FormGroup): Observable<any> {
+    return this.http.post(`${this.url}/recipes`, form);
   }
 
   deleteRecipe(id: number): Observable<any> {
@@ -32,4 +32,13 @@ export class RecipeService {
   getCategories(): Observable<any> {
     return this.http.get(`${this.url}/categories`);
   }
+
+  saveCategory(form: FormGroup): Observable<any> {
+    return this.http.post(`${this.url}/categories`, form);
+  }
+
+  deleteCateogry(id: number): Observable<any> {
+    return this.http.delete(`${this.url}/categories/${id}`);
+  }
+
 }

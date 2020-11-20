@@ -14,8 +14,7 @@ export class RecipesComponent implements OnInit {
   constructor(private router: Router, private recipeService: RecipeService, private formBuilder: FormBuilder) { }
 
   addForm: FormGroup;
-  recipes: RecipeEntity[];
-  newRecipe: RecipeEntity;
+  tableData: RecipeEntity[];
   deleteId: null;
   deleteResponse: String = ''
   saveResponse: String = ''
@@ -23,7 +22,7 @@ export class RecipesComponent implements OnInit {
 
   ngOnInit() {
     this.recipeService.getRecipes().subscribe(data => {
-      this.recipes = data;
+      this.tableData = data;
     });
 
     this.addForm = this.formBuilder.group({
@@ -35,18 +34,18 @@ export class RecipesComponent implements OnInit {
     });
   }  
 
-  saveRecipe() { 
+  save() { 
     this.recipeService.saveRecipe(this.addForm.value)
     .subscribe(res => {
-        this.recipes = res
+        this.tableData = res
       }
     )
   }
 
-  deleteRecipe() {
+  delete() {
     this.recipeService.deleteRecipe(this.deleteId)
     .subscribe(res => {
-        this.recipes = res
+        this.tableData = res
       }
     )
   }

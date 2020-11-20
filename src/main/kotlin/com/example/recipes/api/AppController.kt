@@ -2,7 +2,6 @@ package com.example.recipes.api
 
 import com.example.recipes.functions.AppFunctions
 import com.example.recipes.functions.Queries
-import com.example.recipes.models.RecipeEntity
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 
@@ -10,33 +9,14 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/")
 class AppController{
 
-   val app = AppFunctions()
-   val queries = Queries()
+    val app = AppFunctions()
+    val queries = Queries()
 
     @GetMapping()
     fun allTables(): String {
         app.createTables()
-     return "Completed!"
+        return "Completed!"
     }
-
-     @GetMapping("/recipes")
-     fun getAllRecipes(): List<RecipeEntity> {
-      return queries.getAllRecipes()
-     }
-
-     @PostMapping("/recipes")
-     fun addRecipe(@RequestBody newRecipeEntity: RecipeEntity): List<RecipeEntity> {
-        println(newRecipeEntity)
-        queries.saveRecipe(newRecipeEntity)
-         return queries.getAllRecipes()
-     }
-
-     @DeleteMapping("/recipes/{id}")
-     fun deleteRecipe(@PathVariable id: Int): List<RecipeEntity> {
-      queries.deleteRecipe(id)
-      return queries.getAllRecipes()
-     }
-
 
     @ExceptionHandler(IllegalArgumentException::class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
