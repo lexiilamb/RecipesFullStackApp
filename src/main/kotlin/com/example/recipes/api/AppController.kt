@@ -24,7 +24,7 @@ class AppController{
      }
 
      @PostMapping("/recipes")
-     fun addRecipe(@ModelAttribute  newRecipeEntity: RecipeEntity): List<RecipeEntity> {
+     fun addRecipe(@RequestBody newRecipeEntity: RecipeEntity): List<RecipeEntity> {
         println(newRecipeEntity)
         queries.saveRecipe(newRecipeEntity)
          return queries.getAllRecipes()
