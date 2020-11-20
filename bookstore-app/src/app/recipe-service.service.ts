@@ -18,7 +18,6 @@ export class RecipeService {
   }
 
   saveRecipe(recipe: FormGroup): Observable<any> {
-    console.log(recipe.value)
     return this.http.post(`${this.url}/recipes`, recipe);
   }
 

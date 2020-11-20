@@ -20,7 +20,6 @@ class AppController{
 
      @GetMapping("/recipes")
      fun getAllRecipes(): List<RecipeEntity> {
-//      app.createTables()
       return queries.getAllRecipes()
      }
 
@@ -28,7 +27,6 @@ class AppController{
      fun addRecipe(@ModelAttribute  newRecipeEntity: RecipeEntity): List<RecipeEntity> {
         println(newRecipeEntity)
         queries.saveRecipe(newRecipeEntity)
-//        return "${newRecipeEntity.title} saved!"
          return queries.getAllRecipes()
      }
 

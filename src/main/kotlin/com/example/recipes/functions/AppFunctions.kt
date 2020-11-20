@@ -11,7 +11,7 @@ class AppFunctions {
     private val recipesTable = listOf("recipes",
         """
 		create table recipes (
-		recipe_id int not null auto_increment=1,
+		recipe_id int not null auto_increment=1 ENGINE=innoDB,
 		title varchar(255) not null,
 		description varchar(255),
 		prep_time integer,
