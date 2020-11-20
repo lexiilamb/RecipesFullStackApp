@@ -6,8 +6,8 @@ import javax.persistence.*
 @Table(name = "recipes")
 data class RecipeEntity(
 
-    var title: String = "",
-    var description: String? = "",
+    var title: String = "default",
+    var description: String? = "default",
     var prep_time: Int? = null,
     var cook_time: Int? = null,
     var servings: Int? = null,

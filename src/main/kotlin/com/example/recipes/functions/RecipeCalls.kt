@@ -35,9 +35,9 @@ class RecipeCalls {
     fun insertRow(connection: Connection,
                   title: String,
                   description: String,
-                  prep_time: Int,
-                  cook_time: Int,
-                  servings: Int) {
+                  prep_time: Int?,
+                  cook_time: Int?,
+                  servings: Int?) {
 
         connection.setAutoCommit(false);
         val sql = "insert into recipes (title, description, prep_time, cook_time, servings) values ($title, $description, $prep_time, $cook_time, $servings);"

@@ -15,52 +15,39 @@ export class RecipesComponent implements OnInit {
 
   addForm: FormGroup;
   recipes: RecipeEntity[];
-  newRecipe: RecipeEntity
-  title: string
-  description: string
-  prep_time: number
-  cook_time: number
-  servings: number
+  newRecipe: RecipeEntity;
+  deleteId: null;
+  deleteResponse: String = ''
+  saveResponse: String = ''
   
 
   ngOnInit() {
     this.recipeService.getRecipes().subscribe(data => {
       this.recipes = data;
     });
-    // this.router.events.subscribe(value => {
-    //   this.getRecipes();
-    // });
 
-    // this.addForm = this.formBuilder.group({
-    //   title: ['', Validators.required],
-    //   description: ['', Validators.required],
-    //   prep_time: ['', Validators.required],
-    //   cook_time: ['', Validators.required],
-    //   servings: ['', Validators.required]
-    // });
+    this.addForm = this.formBuilder.group({
+      title: ['', Validators.required],
+      description: ['', Validators.required],
+      prep_time: ['', Validators.required],
+      cook_time: ['', Validators.required],
+      servings: ['', Validators.required]
+    });
   }  
 
-    addRecipe(): void {
-      this.router.navigate(['add-recipe'])
-      .then((e) => {
-        if(e){
-          console.log("Success! Saved recipe")
-        } else {
-          console.log("Recipe save failed")
-        }
-      })
-    }
+  saveRecipe() { 
+    this.recipeService.saveRecipe(this.addForm.value)
+    .subscribe(res => {
+        this.recipes = res
+      }
+    )
+  }
 
-    saveRecipe() {    
-      this.newRecipe.title = this.title 
-      this.newRecipe.description = this.description 
-      this.newRecipe.prep_time = this.prep_time 
-      this.newRecipe.cook_time = this.cook_time 
-      this.newRecipe.servings = this.servings 
-
-      this.recipeService.saveRecipe(this.newRecipe)
-        // .subscribe(data => {
-        //   this.router.navigate(['recipes']);
-        // });
-    }
+  deleteRecipe() {
+    this.recipeService.deleteRecipe(this.deleteId).subscribe(
+      res => {
+        this.recipes = res
+      }
+    )
+  }
 }

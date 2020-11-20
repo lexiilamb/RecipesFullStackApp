@@ -15,16 +15,6 @@ export class AppComponent implements OnInit {
   constructor(private router: Router, private route: ActivatedRoute, private recipeService: RecipeService) {
   }
 
-  getRecipes() {
-    this.recipeService.getRecipes().subscribe(data => {
-      this.recipes = data;
-    });
-  }
-
   ngOnInit() {
-    this.route.paramMap.subscribe(data => {
-      this.recipes = data;
-      console.log(this.recipes)
-    });
   }
 }

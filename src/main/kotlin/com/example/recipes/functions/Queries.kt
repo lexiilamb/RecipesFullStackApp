@@ -27,7 +27,7 @@ class Queries {
             }
     }
 
-    fun addRecipe() {
+    fun saveRecipe(newRecipe: RecipeEntity) {
         val properties = Properties()
 
         //Populate the properties file with user name and password
@@ -40,7 +40,12 @@ class Queries {
         DriverManager
             .getConnection("jdbc:mysql://localhost:3306/recipesdb", properties)
             .use { connection ->
-                recipeCalls.insertRow(connection, "'New Recipe'", "'New Description'", 1, 1, 1)
+                recipeCalls.insertRow(connection,
+                    "'${newRecipe.title}'",
+                    "'${newRecipe.description}'",
+                    newRecipe.prep_time,
+                    newRecipe.cook_time,
+                    newRecipe.servings)
             }
     }
 

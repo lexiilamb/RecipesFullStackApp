@@ -4,6 +4,7 @@
 <div>
   <table class="table" style="width: 80%">
     <tr>
+      <th>ID</th>
       <th>Title</th>
       <th>Description</th>
       <th>Prep Time</th>
@@ -11,6 +12,9 @@
       <th>Servings</th>
     </tr>
     <tr align="center" *ngFor="let recipe of recipes">
+      <td>
+        {{recipe.recipe_id}}
+      </td>
       <td>
         {{recipe.title}}
       </td>
@@ -32,22 +36,49 @@
 
 <div class="col-md-6 user-container">
   <h2 class="text-center">Add Recipe</h2>
+  <form [formGroup]="addForm" (ngSubmit)="saveRecipe()">
+    <div class="form-group">
       <label>Title:</label>
-      <input [(ngModel)]="title" placeholder="title"
+      <input formControlName="title" placeholder="Title"
               id="title">
+    </div>
     <br/>
+
+    <div class="form-group">
       <label>Description:</label>
-      <input [(ngModel)]="description" placeholder="description"
+      <input formControlName="description" placeholder="Description"
               id="description">
-      <label>Prep Time:</label>
-      <input [(ngModel)]="prep_time" placeholder="prep_time" name="prep_time"
-              id="prep_time">
-      <label>Cook Time:</label>
-      <input [(ngModel)]="cook_time" placeholder="cook_time" name="cook_time"
-              id="cook_time">
-      <label>Servings:</label>
-      <input [(ngModel)]="servings" placeholder="servings" name="servings"
-              id="servings">
+    </div>
     <br/>
-    <button class="btn btn-success" (click)="saveRecipe()">Add</button>
+
+    <div class="form-group">
+      <label>Prep Time:</label>
+      <input formControlName="prep_time" placeholder="prep_time" name="Prep Time"
+              id="prep_time">
+    </div>
+    <br/>
+
+    <div class="form-group">
+      <label>Cook Time:</label>
+      <input formControlName="cook_time" placeholder="cook_time" name="Cook Time"
+              id="cook_time">
+    </div>
+    <br/>
+
+    <div class="form-group">
+      <label>Servings:</label>
+      <input formControlName="servings" placeholder="servings" name="Servings"
+              id="servings">
+    </div>
+    <br/>
+
+    <button class="btn btn-success" type="submit">Add Recipe</button> 
+    <p>{{saveResponse}}</p>
+  </form>
 </div>
+
+<h2 class="text-center">Delete Recipe</h2>
+<input type="text" placeholder="Enter Recipe Id" [(ngModel)] = 'deleteId' />
+<br/>
+<button (click)="deleteRecipe()">Delete</button>
+<p>{{deleteResponse}}</p>

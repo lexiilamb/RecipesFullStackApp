@@ -5,7 +5,6 @@ import com.example.recipes.functions.Queries
 import com.example.recipes.models.RecipeEntity
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
-import org.springframework.web.bind.annotation.GetMapping
 
 @RestController
 @RequestMapping("/")
@@ -13,12 +12,6 @@ class AppController{
 
    val app = AppFunctions()
    val queries = Queries()
-
-//    fun blog(model: Model): ArrayList<List<String>> {
-//     model["title"] = "Blog"
-//     model["cat"] = "Words"
-//     return app.displayTables()
-//    }
 
     @GetMapping
     fun allTables() {
@@ -31,15 +24,19 @@ class AppController{
       return queries.getAllRecipes()
      }
 
-     @GetMapping("/addRecipe")
-     fun addRecipe() {
-      queries.addRecipe()
+     @PostMapping("/recipes")
+     fun addRecipe(@ModelAttribute  newRecipeEntity: RecipeEntity): List<RecipeEntity> {
+        println(newRecipeEntity)
+        queries.saveRecipe(newRecipeEntity)
+//        return "${newRecipeEntity.title} saved!"
+         return queries.getAllRecipes()
      }
 
-      @GetMapping("/deleteRecipe")
-      fun deleteRecipe() {
-       queries.deleteRecipe(6)
-      }
+     @DeleteMapping("/recipes/{id}")
+     fun deleteRecipe(@PathVariable id: Int): List<RecipeEntity> {
+      queries.deleteRecipe(id)
+      return queries.getAllRecipes()
+     }
 
 
     @ExceptionHandler(IllegalArgumentException::class)
