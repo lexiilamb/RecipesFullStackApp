@@ -13,9 +13,10 @@ class AppController{
    val app = AppFunctions()
    val queries = Queries()
 
-    @GetMapping
-    fun allTables() {
+    @GetMapping()
+    fun allTables(): String {
         app.createTables()
+     return "Completed!"
     }
 
      @GetMapping("/recipes")

@@ -13,6 +13,10 @@ export class RecipeService {
   constructor(private http: HttpClient) {
   }
 
+  reCreateDatabases(): Observable<any> {
+    return this.http.get(`${this.url}`, {responseType: 'text'});
+  }
+
   getRecipes(): Observable<any> {
     return this.http.get(`${this.url}/recipes`);
   }
@@ -23,7 +27,6 @@ export class RecipeService {
 
   deleteRecipe(id: number): Observable<any> {
     return this.http.delete(`${this.url}/recipes/${id}`);
-    // return this.http.delete(`${this.url}/recipes/${id}`, {responseType: 'text'});
   }
 
   getCategories(): Observable<any> {

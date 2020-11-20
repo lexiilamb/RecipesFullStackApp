@@ -9,12 +9,11 @@ import {Router, ActivatedRoute} from "@angular/router";
 })
 export class AppComponent implements OnInit {
   title = 'RecipesDB';
-  recipes;
-
 
   constructor(private router: Router, private route: ActivatedRoute, private recipeService: RecipeService) {
   }
 
   ngOnInit() {
   }
+
 }

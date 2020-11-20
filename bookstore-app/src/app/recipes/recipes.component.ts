@@ -44,8 +44,8 @@ export class RecipesComponent implements OnInit {
   }
 
   deleteRecipe() {
-    this.recipeService.deleteRecipe(this.deleteId).subscribe(
-      res => {
+    this.recipeService.deleteRecipe(this.deleteId)
+    .subscribe(res => {
         this.recipes = res
       }
     )
