@@ -1,11 +1,27 @@
-<div align='center'><h1>Recipes Database</h1></div>
+<h1 align='center'>Recipes Database</h1>
 
+<table class="table main-div">
+    <div align='center'>
+        <td class="paddingBetweenCols">
+            <h4>Tables</h4>
+            <button class="nav-link" routerLink="/recipes">Recipes</button>
+            <button class="nav-link" routerLink="/categories">Categories</button>
+        </td>
+        <td class="paddingBetweenCols">
+            <h4>Queries</h4>
+            <button class="nav-link" routerLink="/">Queries</button>
+            <button class="nav-link" routerLink="/create-db">Reset Tables</button>
+        </td>
+    </div>
+</table>
+
+<router-outlet></router-outlet>
+
+<br/>
+<br/>
+<br/>
+<br/>
 <p> Run Chrome without CORE/web security for dev:
 <br>Open cmd in the Chrome.exe folder
 <br>Run this command: chrome.exe --user-data-dir="C:/Chrome dev session" --disable-web-security</p>
 
-<button class="nav-link" routerLink="/create-db">Re-Create Tables</button>
-<button class="nav-link" routerLink="/recipes">Recipes</button>
-<button class="nav-link" routerLink="/categories">Categories</button>
-
-<router-outlet></router-outlet>

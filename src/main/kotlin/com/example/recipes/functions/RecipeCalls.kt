@@ -11,11 +11,10 @@ class RecipeCalls {
     val tableName = "recipes"
     val tupleId = "recipe_id"
 
-    fun queryRecipes(SCHEMA: String, connection: Connection): List<RecipeEntity> {
+    fun queryTable(query: String, SCHEMA: String, connection: Connection): List<RecipeEntity> {
         var resultList = ArrayList<RecipeEntity>()
 
-        val sql = "SELECT * FROM $SCHEMA.$tableName"
-        val rs = connection.createStatement().executeQuery(sql)
+        val rs = connection.createStatement().executeQuery(query)
 
         while (rs.next()) {
            var tuple = RecipeEntity( recipe_id = rs.getInt("recipe_id"),
@@ -31,7 +30,7 @@ class RecipeCalls {
         return resultList
     }
 
-    fun insertRecipes(connection: Connection) {
+    fun insertTableData(connection: Connection) {
         insertRow(connection, "'Garlic Butter Steak Bites'", "'Made with garlic butter sauce'", 5, 10, 4)
         insertRow(connection, "'Good Pie'", "'pumpkin'", 5, 60, 1)
         insertRow(connection, "'mac&cheese'", "'super cheesy'", 5, 10, 8)
@@ -54,8 +53,9 @@ class RecipeCalls {
         }
     }
 
-    fun getAllRecipes(): List<RecipeEntity> {
+    fun getAll(): List<RecipeEntity> {
         val properties = Properties()
+        val query = "SELECT * FROM $SCHEMA.$tableName"
 
         //Populate the properties file with user name and password
         with(properties) {
@@ -67,11 +67,11 @@ class RecipeCalls {
         DriverManager
             .getConnection("jdbc:mysql://localhost:3306/recipesdb", properties)
             .use { connection ->
-                return queryRecipes(SCHEMA, connection)
+                return queryTable(query, SCHEMA, connection)
             }
     }
 
-    fun saveRecipe(newRecipe: RecipeEntity) {
+    fun save(newRecipe: RecipeEntity) {
         val properties = Properties()
 
         //Populate the properties file with user name and password
@@ -93,7 +93,7 @@ class RecipeCalls {
             }
     }
 
-    fun deleteRecipe(id: Int) {
+    fun delete(id: Int) {
         val properties = Properties()
 
         //Populate the properties file with user name and password

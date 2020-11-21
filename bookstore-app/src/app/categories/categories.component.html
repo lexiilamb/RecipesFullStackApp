@@ -18,6 +18,9 @@
         <td>
           {{category.recipe_id}}
         </td>
+        <td>
+          <button (click)="delete(category)">Delete</button>
+        </td>
       </tr>
     </table>
   </div>
@@ -43,9 +46,3 @@
       <p>{{saveResponse}}</p>
     </form>
   </div>
-  
-  <h2 class="text-center">Delete Category</h2>
-  <input type="text" placeholder="Enter Category Id" [(ngModel)] = 'deleteId' />
-  <br/>
-  <button (click)="delete()">Delete</button>
-  <p>{{deleteResponse}}</p>

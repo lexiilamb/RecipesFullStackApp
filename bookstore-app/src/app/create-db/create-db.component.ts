@@ -19,8 +19,7 @@ export class CreateDbComponent implements OnInit {
     this.recipeService.reCreateDatabases()
     .subscribe(res => {
       this.response = res
-    }
-  )
+    })
   }
 
 }

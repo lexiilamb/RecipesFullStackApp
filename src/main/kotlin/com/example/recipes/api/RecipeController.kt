@@ -12,20 +12,20 @@ class RecipeController{
     val recipeCalls = RecipeCalls()
 
     @GetMapping()
-    fun getAllRecipes(): List<RecipeEntity> {
-        return recipeCalls.getAllRecipes()
+    fun getAll(): List<RecipeEntity> {
+        return recipeCalls.getAll()
     }
 
     @PostMapping()
     fun addRecipe(@RequestBody newRecipeEntity: RecipeEntity): List<RecipeEntity> {
-        recipeCalls.saveRecipe(newRecipeEntity)
-        return recipeCalls.getAllRecipes()
+        recipeCalls.save(newRecipeEntity)
+        return recipeCalls.getAll()
     }
 
     @DeleteMapping("/{id}")
     fun deleteRecipe(@PathVariable id: Int): List<RecipeEntity> {
-        recipeCalls.deleteRecipe(id)
-        return recipeCalls.getAllRecipes()
+        recipeCalls.delete(id)
+        return recipeCalls.getAll()
     }
 
 

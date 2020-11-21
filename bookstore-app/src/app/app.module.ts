@@ -8,13 +8,15 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { CategoriesComponent } from './categories/categories.component';
 import { RecipesComponent } from './recipes/recipes.component';
 import { CreateDbComponent } from './create-db/create-db.component';
+import { QueriesComponent } from './queries/queries.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RecipesComponent,
     CategoriesComponent,
-    CreateDbComponent
+    CreateDbComponent,
+    QueriesComponent
   ],
   imports: [
     BrowserModule,

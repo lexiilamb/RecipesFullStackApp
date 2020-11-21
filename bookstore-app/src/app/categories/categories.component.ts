@@ -15,8 +15,6 @@ export class CategoriesComponent implements OnInit {
 
   addForm: FormGroup;
   tableData: CategoryEntity[];
-  deleteId: null;
-  deleteResponse: String = ''
   saveResponse: String = ''
   
 
@@ -39,8 +37,8 @@ export class CategoriesComponent implements OnInit {
     )
   }
 
-  delete() {
-    this.recipeService.deleteCateogry(this.deleteId)
+  delete(category: CategoryEntity) {
+    this.recipeService.deleteCateogry(category.food_category_id)
     .subscribe(res => {
         this.tableData = res
       }

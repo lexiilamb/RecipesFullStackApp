@@ -15,8 +15,6 @@ export class RecipesComponent implements OnInit {
 
   addForm: FormGroup;
   tableData: RecipeEntity[];
-  deleteId: null;
-  deleteResponse: String = ''
   saveResponse: String = ''
   
 
@@ -42,8 +40,8 @@ export class RecipesComponent implements OnInit {
     )
   }
 
-  delete() {
-    this.recipeService.deleteRecipe(this.deleteId)
+  delete(recipe: RecipeEntity) {
+    this.recipeService.deleteRecipe(recipe.recipe_id)
     .subscribe(res => {
         this.tableData = res
       }

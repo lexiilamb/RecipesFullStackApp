@@ -1,26 +1,27 @@
 package com.example.recipes.functions
 
-import com.example.recipes.models.FoodCategoryEntity
+import com.example.recipes.models.IngredientEntity
 import java.sql.Connection
 import java.sql.DriverManager
 import java.util.*
 import kotlin.collections.ArrayList
 
-class FoodCategoryCalls {
+class IngredientCalls {
     val SCHEMA = "recipesdb"
-    val tableName = "food_categories"
-    val tupleId = "food_category_id"
+    val tableName = "ingredients"
+    val tupleId = "ingredient_id"
 
-    fun queryTable(SCHEMA: String, connection: Connection): List<FoodCategoryEntity> {
-        var resultList = ArrayList<FoodCategoryEntity>()
+    fun queryTable(SCHEMA: String, connection: Connection): List<IngredientEntity> {
+        var resultList = ArrayList<IngredientEntity>()
 
         val sql = "SELECT * FROM $SCHEMA.$tableName"
         val rs = connection.createStatement().executeQuery(sql)
 
         while (rs.next()) {
-            var tuple = FoodCategoryEntity(food_category_id = rs.getInt("food_category_id"),
-                category = rs.getString("category"),
-                recipe_id = rs.getInt("recipe_id"))
+            var tuple = IngredientEntity(ingredient_id = rs.getInt("appliance_id"),
+                name = rs.getString("name"),
+                food_group = rs.getString("name")
+            )
 
             resultList.add(tuple)
         }
@@ -29,29 +30,29 @@ class FoodCategoryCalls {
     }
     
     fun insertTableData(connection: Connection) {
-        insertRow(connection, "'Baking'", 1)
-        insertRow(connection, "'Beef'", 1)
-        insertRow(connection, "'Breakfast'", 1)
-        insertRow(connection, "'Chicken'", 1)
-        insertRow(connection, "'Soup'", 1)
-        insertRow(connection, "'Dessert'", 1)
-        insertRow(connection, "'Muffins'", 1)
-        insertRow(connection, "'Pork'", 1)
+        insertRow(connection, "'Steak'", "'Meat'")
+        insertRow(connection, "'Potatoes'", "'Vegetables'")
+        insertRow(connection, "'Chicken'", "'Meat'")
+        insertRow(connection, "'Pineapple'", "'Vegetables'")
+        insertRow(connection, "'Carrots'", "'Meat'")
+        insertRow(connection, "'Peanuts'", "'Legumes '")
+        insertRow(connection, "'Condensed Milk'", "'Dairy'")
+
     }
 
     fun insertRow(connection: Connection,
-                  category: String,
-                  recipeId: Int?) {
+                  name: String,
+                  foodGroup: String?) {
 
         connection.setAutoCommit(false);
-        val sql = "insert into $tableName (category, recipe_id) values ($category, $recipeId);"
+        val sql = "insert into $tableName (name, food_group) values ($name, $foodGroup);"
         with(connection) {
             createStatement().execute(sql)
             connection.commit()
         }
     }
 
-    fun getAll(): List<FoodCategoryEntity> {
+    fun getAll(): List<IngredientEntity> {
         val properties = Properties()
 
         //Populate the properties file with user name and password
@@ -68,7 +69,7 @@ class FoodCategoryCalls {
             }
     }
 
-    fun save(newCategory: FoodCategoryEntity) {
+    fun save(newTuple: IngredientEntity) {
         val properties = Properties()
 
         //Populate the properties file with user name and password
@@ -82,8 +83,8 @@ class FoodCategoryCalls {
             .getConnection("jdbc:mysql://localhost:3306/recipesdb", properties)
             .use { connection ->
                 insertRow(connection,
-                    "'${newCategory.category}'",
-                    newCategory.recipe_id)
+                    "'${newTuple.name}'",
+                    newTuple.food_group)
             }
     }
 

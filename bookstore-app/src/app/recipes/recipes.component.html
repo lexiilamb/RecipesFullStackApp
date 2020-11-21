@@ -30,6 +30,9 @@
       <td>
         {{recipe.servings}}
       </td>
+      <td>
+        <button (click)="delete(recipe)">Delete</button>
+      </td>
     </tr>
   </table>
 </div>
@@ -76,9 +79,3 @@
     <p>{{saveResponse}}</p>
   </form>
 </div>
-
-<h2 class="text-center">Delete Recipe</h2>
-<input type="text" placeholder="Enter Recipe Id" [(ngModel)] = 'deleteId' />
-<br/>
-<button (click)="delete()">Delete</button>
-<p>{{deleteResponse}}</p>

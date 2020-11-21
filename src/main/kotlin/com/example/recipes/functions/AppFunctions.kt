@@ -1,8 +1,10 @@
 package com.example.recipes.functions
 
+import com.example.recipes.models.RecipeEntity
 import java.sql.Connection
 import java.sql.DriverManager
 import java.util.*
+import kotlin.collections.ArrayList
 
 class AppFunctions {
     val SCHEMA = "recipesdb"
@@ -29,31 +31,31 @@ class AppFunctions {
 		primary key (food_category_id)
 	)""")
 
-    private val recipeCategoriesTable = listOf("recipe_categories",
-        """create table recipe_categories (
-		recipe_category_id int not null auto_increment,
-		category varchar(255) not null,
-		recipe_id int not null,
-		foreign key (recipe_id) references recipes(recipe_id),
-		primary key (recipe_category_id)
-	)""")
+//    private val recipeCategoriesTable = listOf("recipe_categories",
+//        """create table recipe_categories (
+//		recipe_category_id int not null auto_increment,
+//		category varchar(255) not null,
+//		recipe_id int not null,
+//		foreign key (recipe_id) references recipes(recipe_id),
+//		primary key (recipe_category_id)
+//	)""")
 
     private val ingredientsTable = listOf("ingredients",
         """create table ingredients (
 		ingredient_id int not null auto_increment,
 		name varchar(255) not null,
+		food_group varchar(255) not null,
 		primary key (ingredient_id)
 	)""")
 
     private val ingredientsListsTable = listOf("ingredients_lists",
         """create table ingredients_lists (
 		ingredients_list_id int not null auto_increment,
-		ingredient_id int not null,
+		ingredient varchar(255) not null,
 		recipe_id int not null,
 		measurement_type varchar(255) not null,
 		measurement_amount int not null,
 		foreign key (recipe_id) references recipes(recipe_id),
-		foreign key (ingredient_id) references ingredients(ingredient_id),
 		primary key (ingredients_list_id)
 	)""")
 
@@ -88,7 +90,7 @@ class AppFunctions {
     private val tables = listOf(
         recipesTable,
         foodCategoriesTable,
-        recipeCategoriesTable,
+//        recipeCategoriesTable,
         ingredientsTable,
         ingredientsListsTable,
         instructionsTable,
@@ -98,6 +100,9 @@ class AppFunctions {
 
     val recipeCalls = RecipeCalls()
     val categoryCalls = FoodCategoryCalls()
+    val ingredientCalls = IngredientCalls()
+    val ingredientsListCalls = IngredientsListCalls()
+    val applianceCalls = ApplianceCalls()
 
     fun createTables() {
         val properties = Properties()
@@ -125,13 +130,17 @@ class AppFunctions {
     }
 
     private fun insertData(connection: Connection) {
-        recipeCalls.insertRecipes(connection)
-        categoryCalls.insertCategories(connection)
+        recipeCalls.insertTableData(connection)
+        categoryCalls.insertTableData(connection)
+        ingredientCalls.insertTableData(connection)
+        ingredientsListCalls.insertTableData(connection)
+        applianceCalls.insertTableData(connection)
     }
 
     private fun prepareTable(connection: Connection) {
         val metaData = connection.metaData
         tables.forEach { table ->
+            println(table[0])
             val rs = metaData.getTables(null, SCHEMA, table[0], null)
 
             if (!rs.next()) {
@@ -199,5 +208,22 @@ class AppFunctions {
             //Commit the change to the database
             connection.commit()
         }
+    }
+
+    fun runQuery(query: String): List<RecipeEntity> {
+        val properties = Properties()
+
+        //Populate the properties file with user name and password
+        with(properties) {
+            put("user", "root")
+            put("password", "root")
+        }
+
+        //Open a connection to the database
+        DriverManager
+            .getConnection("jdbc:mysql://localhost:3306/recipesdb", properties)
+            .use { connection ->
+                return recipeCalls.queryTable(query, SCHEMA, connection)
+            }
     }
 }

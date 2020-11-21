@@ -4,5 +4,5 @@ export class RecipeEntity {
     prep_time: number;
     cook_time: number;
     servings: number;
-    id: number;
+    recipe_id: number;
   }
