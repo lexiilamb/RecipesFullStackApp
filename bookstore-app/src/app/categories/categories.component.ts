@@ -38,7 +38,7 @@ export class CategoriesComponent implements OnInit {
   }
 
   delete(category: CategoryEntity) {
-    this.recipeService.deleteCateogry(category.food_category_id)
+    this.recipeService.deleteCateogry(category.category_id)
     .subscribe(res => {
         this.tableData = res
       }
