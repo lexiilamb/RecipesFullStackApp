@@ -1,29 +1,29 @@
 package com.example.recipes.api
 
-import com.example.recipes.functions.FoodCategoryCalls
-import com.example.recipes.models.FoodCategoryEntity
+import com.example.recipes.functions.CategoryCalls
+import com.example.recipes.models.CategoryEntity
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/categories")
-class FoodCategoryController{
+class CategoryController{
 
-    val categoryCalls = FoodCategoryCalls()
+    val categoryCalls = CategoryCalls()
 
     @GetMapping()
-    fun getAllCategories(): List<FoodCategoryEntity> {
+    fun getAllCategories(): List<CategoryEntity> {
         return categoryCalls.getAll()
     }
 
     @PostMapping()
-    fun addCategory(@RequestBody newCategoryEntity: FoodCategoryEntity): List<FoodCategoryEntity> {
+    fun addCategory(@RequestBody newCategoryEntity: CategoryEntity): List<CategoryEntity> {
         categoryCalls.save(newCategoryEntity)
         return categoryCalls.getAll()
     }
 
     @DeleteMapping("/{id}")
-    fun deleteCategory(@PathVariable id: Int): List<FoodCategoryEntity> {
+    fun deleteCategory(@PathVariable id: Int): List<CategoryEntity> {
         categoryCalls.delete(id)
         return categoryCalls.getAll()
     }

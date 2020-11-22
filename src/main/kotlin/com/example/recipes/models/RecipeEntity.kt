@@ -7,6 +7,7 @@ import javax.persistence.*
 data class RecipeEntity(
 
     var title: String = "default",
+    var category: String? = "default",
     var description: String? = "default",
     var prep_time: Int? = null,
     var cook_time: Int? = null,

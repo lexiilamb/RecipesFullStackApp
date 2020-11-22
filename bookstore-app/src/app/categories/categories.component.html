@@ -2,21 +2,21 @@
     <h2 class="text-center">Categories</h2>
   </div>
   <div>
-    <table class="table" style="width: 80%">
+    <table class="table main-div">
       <tr>
         <th>ID</th>
         <th>Category</th>
-        <th>Recipe ID</th>
+        <th>Description</th>
       </tr>
       <tr align="center" *ngFor="let category of tableData">
         <td>
-          {{category.food_category_id}}
+          {{category.category_id}}
         </td>
         <td>
           {{category.category}}
         </td>
         <td>
-          {{category.recipe_id}}
+          {{category.description}}
         </td>
         <td>
           <button (click)="delete(category)">Delete</button>
@@ -36,9 +36,9 @@
       <br/>
   
       <div class="form-group">
-        <label>Recipe ID:</label>
-        <input formControlName="recipe_id" placeholder="Recipe ID"
-                id="recipe_id">
+        <label>Description:</label>
+        <input formControlName="description" placeholder="Description"
+                id="description">
       </div>
       <br/>
   

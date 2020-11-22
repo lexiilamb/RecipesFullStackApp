@@ -1,13 +1,9 @@
 package com.example.recipes.functions
 
-import com.example.recipes.models.RecipeEntity
-import java.sql.DriverManager
-import java.util.*
-
 class Queries {
     val app = AppFunctions()
     val recipeCalls = RecipeCalls()
-    val categoryCalls = FoodCategoryCalls()
+    val categoryCalls = CategoryCalls()
 
 
 //    fun getAllRecipes(): List<RecipeEntity> {

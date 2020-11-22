@@ -42,10 +42,10 @@ class IngredientCalls {
 
     fun insertRow(connection: Connection,
                   name: String,
-                  foodGroup: String?) {
+                  food_group: String?) {
 
         connection.setAutoCommit(false);
-        val sql = "insert into $tableName (name, food_group) values ($name, $foodGroup);"
+        val sql = "insert into $tableName (name, food_group) values ($name, $food_group);"
         with(connection) {
             createStatement().execute(sql)
             connection.commit()

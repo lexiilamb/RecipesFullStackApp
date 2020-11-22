@@ -25,6 +25,7 @@ export class RecipesComponent implements OnInit {
 
     this.addForm = this.formBuilder.group({
       title: ['', Validators.required],
+      category: ['', Validators.required],
       description: ['', Validators.required],
       prep_time: ['', Validators.required],
       cook_time: ['', Validators.required],

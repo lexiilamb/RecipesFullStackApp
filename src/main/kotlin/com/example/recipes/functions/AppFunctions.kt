@@ -4,7 +4,6 @@ import com.example.recipes.models.RecipeEntity
 import java.sql.Connection
 import java.sql.DriverManager
 import java.util.*
-import kotlin.collections.ArrayList
 
 class AppFunctions {
     val SCHEMA = "recipesdb"
@@ -13,6 +12,7 @@ class AppFunctions {
 		create table recipes (
 		recipe_id int not null auto_increment,
 		title varchar(255) not null,
+		category varchar(255),
 		description varchar(255),
 		prep_time integer,
 		cook_time integer,
@@ -22,23 +22,13 @@ class AppFunctions {
 	)
 	""")
 
-    private val foodCategoriesTable = listOf("food_categories",
-        """create table food_categories (
-		food_category_id int not null auto_increment,
+    private val categoriesTable = listOf("categories",
+        """create table categories (
+		category_id int not null auto_increment,
 		category varchar(255) not null,
-		recipe_id int not null,
-		foreign key (recipe_id) references recipes(recipe_id),
-		primary key (food_category_id)
+		description varchar(255) not null,
+		primary key (category_id)
 	)""")
-
-//    private val recipeCategoriesTable = listOf("recipe_categories",
-//        """create table recipe_categories (
-//		recipe_category_id int not null auto_increment,
-//		category varchar(255) not null,
-//		recipe_id int not null,
-//		foreign key (recipe_id) references recipes(recipe_id),
-//		primary key (recipe_category_id)
-//	)""")
 
     private val ingredientsTable = listOf("ingredients",
         """create table ingredients (
@@ -89,8 +79,7 @@ class AppFunctions {
 
     private val tables = listOf(
         recipesTable,
-        foodCategoriesTable,
-//        recipeCategoriesTable,
+        categoriesTable,
         ingredientsTable,
         ingredientsListsTable,
         instructionsTable,
@@ -99,7 +88,7 @@ class AppFunctions {
     )
 
     val recipeCalls = RecipeCalls()
-    val categoryCalls = FoodCategoryCalls()
+    val categoryCalls = CategoryCalls()
     val ingredientCalls = IngredientCalls()
     val ingredientsListCalls = IngredientsListCalls()
     val applianceCalls = ApplianceCalls()

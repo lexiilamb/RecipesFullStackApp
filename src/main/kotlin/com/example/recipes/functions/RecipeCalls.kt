@@ -19,6 +19,7 @@ class RecipeCalls {
         while (rs.next()) {
            var tuple = RecipeEntity( recipe_id = rs.getInt("recipe_id"),
                title = rs.getString("title"),
+               category = rs.getString("category"),
                description = rs.getString("description"),
                prep_time = rs.getInt("prep_time"),
                cook_time = rs.getInt("cook_time"),
@@ -31,22 +32,22 @@ class RecipeCalls {
     }
 
     fun insertTableData(connection: Connection) {
-        insertRow(connection, "'Garlic Butter Steak Bites'", "'Made with garlic butter sauce'", 5, 10, 4)
-        insertRow(connection, "'Good Pie'", "'pumpkin'", 5, 60, 1)
-        insertRow(connection, "'mac&cheese'", "'super cheesy'", 5, 10, 8)
-        insertRow(connection, "'Perogies'", "'with potatoes'", 5, 15, 1)
-        insertRow(connection, "'THIS'", "'IS STUPID'", 5, 15, 1)
+        insertRow(connection, "'Garlic Butter Steak Bites'", "'Beef'", "'Made with garlic butter sauce'", 5, 10, 4)
+        insertRow(connection, "'Good Pie'", "'Baking'",  "'pumpkin'", 5, 60, 1)
+        insertRow(connection, "'mac&cheese'", "'Vegetarian'",  "'super cheesy'", 5, 10, 8)
+        insertRow(connection, "'Perogies'", "'Vegetarian'",  "'with potatoes'", 5, 15, 1)
     }
 
     fun insertRow(connection: Connection,
                   title: String,
-                  description: String,
+                  category: String?,
+                  description: String?,
                   prep_time: Int?,
                   cook_time: Int?,
                   servings: Int?) {
 
         connection.setAutoCommit(false);
-        val sql = "insert into $tableName (title, description, prep_time, cook_time, servings) values ($title, $description, $prep_time, $cook_time, $servings);"
+        val sql = "insert into $tableName (title, category, description, prep_time, cook_time, servings) values ($title, $category, $description, $prep_time, $cook_time, $servings);"
         with(connection) {
             createStatement().execute(sql)
             connection.commit()
@@ -86,11 +87,21 @@ class RecipeCalls {
             .use { connection ->
                 insertRow(connection,
                     "'${newRecipe.title}'",
+                    "'${newRecipe.category}'",
                     "'${newRecipe.description}'",
                     newRecipe.prep_time,
                     newRecipe.cook_time,
                     newRecipe.servings)
             }
+    }
+
+    fun deleteDependencies(id: Int, tableName: String, connection: Connection) {
+        connection.setAutoCommit(false);
+        val sql = "delete from $tableName where $tupleId = $id;"
+        with(connection) {
+            createStatement().execute(sql)
+            connection.commit()
+        }
     }
 
     fun delete(id: Int) {
@@ -106,12 +117,10 @@ class RecipeCalls {
         DriverManager
             .getConnection("jdbc:mysql://localhost:3306/recipesdb", properties)
             .use { connection ->
-                connection.setAutoCommit(false);
-                val sql = "delete from food_categories where $tupleId = $id;"
-                with(connection) {
-                    createStatement().execute(sql)
-                    connection.commit()
-                }
+
+//                deleteDependencies(id, "categories", connection)
+                deleteDependencies(id, "ingredients_lists", connection)
+                deleteDependencies(id, "appliances", connection)
             }
 
         //Open a connection to the database

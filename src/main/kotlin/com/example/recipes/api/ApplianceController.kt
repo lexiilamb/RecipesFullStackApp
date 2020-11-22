@@ -1,9 +1,7 @@
 package com.example.recipes.api
 
 import com.example.recipes.functions.ApplianceCalls
-import com.example.recipes.functions.FoodCategoryCalls
 import com.example.recipes.models.ApplianceEntity
-import com.example.recipes.models.FoodCategoryEntity
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 

@@ -2,10 +2,11 @@
   <h2 class="text-center">Recipes</h2>
 </div>
 <div>
-  <table class="table" style="width: 80%">
+  <table class="table main-div">
     <tr>
       <th>ID</th>
       <th>Title</th>
+      <th>Category</th>
       <th>Description</th>
       <th>Prep Time</th>
       <th>Cook Time</th>
@@ -17,6 +18,9 @@
       </td>
       <td>
         {{recipe.title}}
+      </td>
+      <td>
+        {{recipe.category}}
       </td>
       <td>
         {{recipe.description}}
@@ -55,22 +59,29 @@
     <br/>
 
     <div class="form-group">
+      <label>Category:</label>
+      <input formControlName="description" placeholder="Category"
+              id="description">
+    </div>
+    <br/>
+
+    <div class="form-group">
       <label>Prep Time:</label>
-      <input formControlName="prep_time" placeholder="prep_time" name="Prep Time"
+      <input formControlName="prep_time" placeholder="Prep Time" name="Prep Time"
               id="prep_time">
     </div>
     <br/>
 
     <div class="form-group">
       <label>Cook Time:</label>
-      <input formControlName="cook_time" placeholder="cook_time" name="Cook Time"
+      <input formControlName="cook_time" placeholder="Cook Time" name="Cook Time"
               id="cook_time">
     </div>
     <br/>
 
     <div class="form-group">
       <label>Servings:</label>
-      <input formControlName="servings" placeholder="servings" name="Servings"
+      <input formControlName="servings" placeholder="Servings" name="Servings"
               id="servings">
     </div>
     <br/>
