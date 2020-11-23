@@ -1,35 +1,47 @@
 <div class="col-md-6 user-container">
-    <h2 class="text-center">Categories</h2>
+    <h2 class="text-center">Ingredients Lists</h2>
   </div>
   <div>
     <table class="table main-div">
       <tr>
         <th>ID</th>
-        <th>Category</th>
+        <th>Recipe ID</th>
+        <th>Ingredient</th>
         <th>Description</th>
+        <th>Measurement Type</th>
+        <th>Measurement Amount</th>
       </tr>
-      <tr align="center" *ngFor="let category of tableData">
+      <tr align="center" *ngFor="let listItem of tableData">
         <td>
-          {{category.category_id}}
+          {{listItem.ingredients_list_id}}
         </td>
         <td>
-          {{category.name}}
+          {{listItem.recipe_id}}
         </td>
         <td>
-          {{category.description}}
+          {{listItem.ingredient}}
         </td>
         <td>
-          <button (click)="delete(category)">Delete</button>
+          {{listItem.description}}
         </td>
+        <td>
+          {{listItem.measurement_type}}
+        </td>
+        <td>
+          {{listItem.measurement_amount}}
+        </td>
+        <!-- <td>
+          <button (click)="delete(group)">Delete</button>
+        </td> -->
       </tr>
     </table>
   </div>
   
-  <div class="col-md-6 user-container">
-    <h2 class="text-center">Add Category</h2>
+  <!-- <div class="col-md-6 user-container">
+    <h2 class="text-center">Add Food Group</h2>
     <form [formGroup]="addForm" (ngSubmit)="save()">
       <div class="form-group">
-        <label>Category Name:</label>
+        <label>Name:</label>
         <input formControlName="name" placeholder="Name"
                 id="name">
       </div>
@@ -45,4 +57,4 @@
       <button class="btn btn-success" type="submit">Add Category</button> 
       <p>{{saveResponse}}</p>
     </form>
-  </div>
+  </div> -->

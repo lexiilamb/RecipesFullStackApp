@@ -25,9 +25,17 @@ class AppFunctions {
     private val categoriesTable = listOf("categories",
         """create table categories (
 		category_id int not null auto_increment,
-		category varchar(255) not null,
+		name varchar(255) not null,
 		description varchar(255) not null,
 		primary key (category_id)
+	)""")
+
+    private val foodGroupsTable = listOf("food_groups",
+        """create table food_groups (
+		food_group_id int not null auto_increment,
+		name varchar(255) not null,
+		description varchar(255) not null,
+		primary key (food_group_id)
 	)""")
 
     private val ingredientsTable = listOf("ingredients",
@@ -41,10 +49,11 @@ class AppFunctions {
     private val ingredientsListsTable = listOf("ingredients_lists",
         """create table ingredients_lists (
 		ingredients_list_id int not null auto_increment,
-		ingredient varchar(255) not null,
 		recipe_id int not null,
+		ingredient varchar(255) not null,
+		description varchar(255) not null,
 		measurement_type varchar(255) not null,
-		measurement_amount int not null,
+		measurement_amount numeric(4,2) not null,
 		foreign key (recipe_id) references recipes(recipe_id),
 		primary key (ingredients_list_id)
 	)""")
@@ -59,39 +68,51 @@ class AppFunctions {
 		primary key (instruction_id)
 	)""")
 
-    private val appliancesTable = listOf("appliances",
-        """create table appliances (
-		appliance_id int not null auto_increment,
+    private val equipmentTable = listOf("equipment",
+        """create table equipment (
+		equipment_id int not null auto_increment,
 		name varchar(225) not null,
-		recipe_id int not null,
-		foreign key (recipe_id) references recipes(recipe_id),
-		primary key (appliance_id)
+		description varchar(225) not null,
+		primary key (equipment_id)
 	)""")
 
-    private val utensilsTable = listOf("utensils",
-        """create table utensils (
-		utensils_id int not null auto_increment,
+    private val recipeEquipmentTable = listOf("recipe_equipment",
+        """create table recipe_equipment (
+		recipe_equipment_id int not null auto_increment,
 		name varchar(225) not null,
 		recipe_id int not null,
 		foreign key (recipe_id) references recipes(recipe_id),
-		primary key (utensils_id)
+		primary key (recipe_equipment_id)
 	)""")
+
+//    private val utensilsTable = listOf("utensils",
+//        """create table utensils (
+//		utensil_id int not null auto_increment,
+//		name varchar(225) not null,
+//		recipe_id int not null,
+//		foreign key (recipe_id) references recipes(recipe_id),
+//		primary key (utensil_id)
+//	)""")
+
 
     private val tables = listOf(
         recipesTable,
         categoriesTable,
+        foodGroupsTable,
         ingredientsTable,
         ingredientsListsTable,
         instructionsTable,
-        appliancesTable,
-        utensilsTable
+        equipmentTable,
+        recipeEquipmentTable
     )
 
-    val recipeCalls = RecipeCalls()
-    val categoryCalls = CategoryCalls()
-    val ingredientCalls = IngredientCalls()
-    val ingredientsListCalls = IngredientsListCalls()
-    val applianceCalls = ApplianceCalls()
+    private val recipeCalls = RecipeCalls()
+    private val categoryCalls = CategoryCalls()
+    private val foodGroupCalls = FoodGroupCalls()
+    private val ingredientCalls = IngredientCalls()
+    private val ingredientsListCalls = IngredientsListCalls()
+    private val instructionCalls = InstructionCalls()
+    private val applianceCalls = EquipmentCalls()
 
     fun createTables() {
         val properties = Properties()
@@ -121,8 +142,10 @@ class AppFunctions {
     private fun insertData(connection: Connection) {
         recipeCalls.insertTableData(connection)
         categoryCalls.insertTableData(connection)
+        foodGroupCalls.insertTableData(connection)
         ingredientCalls.insertTableData(connection)
         ingredientsListCalls.insertTableData(connection)
+        instructionCalls.insertTableData(connection)
         applianceCalls.insertTableData(connection)
     }
 

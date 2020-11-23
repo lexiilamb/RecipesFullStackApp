@@ -6,9 +6,10 @@ import javax.persistence.*
 @Table(name = "ingredients_lists")
 data class IngredientsListEntity(
 
-    val ingredient: String,
     val recipe_id: Int,
+    val ingredient: String,
+    val description: String,
     val measurement_type: String,
-    val measurement_amount: Int,
+    val measurement_amount: Double,
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY) val ingredients_list_id: Int? = null
 )

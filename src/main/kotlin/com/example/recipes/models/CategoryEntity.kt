@@ -6,7 +6,7 @@ import javax.persistence.*
 @Table(name = "categories")
 data class CategoryEntity(
 
-    val category: String = "",
+    val name: String = "",
     val description: String? = "",
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY) val category_id: Int? = null
 )

@@ -1,26 +1,29 @@
 package com.example.recipes.functions
 
-import com.example.recipes.models.CategoryEntity
+import com.example.recipes.models.InstructionEntity
 import java.sql.Connection
 import java.sql.DriverManager
 import java.util.*
 import kotlin.collections.ArrayList
 
-class CategoryCalls {
+class InstructionCalls {
     val SCHEMA = "recipesdb"
-    val tableName = "categories"
-    val tupleId = "category_id"
+    val tableName = "instructions"
+    val tupleId = "instruction_id"
 
-    fun queryTable(SCHEMA: String, connection: Connection): List<CategoryEntity> {
-        var resultList = ArrayList<CategoryEntity>()
+    fun queryTable(SCHEMA: String, connection: Connection): List<InstructionEntity> {
+        var resultList = ArrayList<InstructionEntity>()
 
         val sql = "SELECT * FROM $SCHEMA.$tableName"
         val rs = connection.createStatement().executeQuery(sql)
 
         while (rs.next()) {
-            var tuple = CategoryEntity(category_id = rs.getInt("category_id"),
-                name = rs.getString("name"),
-                description = rs.getString("description"))
+            var tuple = InstructionEntity(
+                instruction_id = rs.getInt("instruction_id"),
+                step = rs.getInt("step"),
+                instruction = rs.getString("instruction"),
+                recipe_id = rs.getInt("recipe_id")
+            )
 
             resultList.add(tuple)
         }
@@ -29,29 +32,28 @@ class CategoryCalls {
     }
     
     fun insertTableData(connection: Connection) {
-        insertRow(connection, "'Baking'", "'Cakes, pastries recipes'")
-        insertRow(connection, "'Beef'", "'Ground beef and steak recipes'")
-        insertRow(connection, "'Breakfast'", "''")
-        insertRow(connection, "'Chicken'", "'Legs, wings, thighs, and breast recieps'")
-        insertRow(connection, "'Soup'", "'Ramen, pho'")
-        insertRow(connection, "'Muffins'", "''")
-        insertRow(connection, "'Pork'", "''")
-        insertRow(connection, "'Vegetarian'", "''")
+        insertRow(connection, 1, "'Heat the olive oil in a large pan over high heat. Season the steak with salt and pepper to taste.'", 1)
+        insertRow(connection, 2, "'Place the steak in the pan in a single layer; you may have to work in batches depending on the size of your pan. Cook for 3-4 minutes, stirring occasionally, until golden brown. Repeat with remaining meat if needed.'", 1)
+        insertRow(connection, 3, "'Add the butter and garlic to the pan; cook for 1-2 minutes, stirring to coat the meat in the sauce.'", 1)
+        insertRow(connection, 4, "'Sprinkle with parsley and serve.'", 1)
+        insertRow(connection, 1, "'blank'", 1)
+
     }
 
     fun insertRow(connection: Connection,
-                  name: String,
-                  description: String?) {
+                  step: Int,
+                  instruction: String,
+                  recipe_id: Int) {
 
         connection.setAutoCommit(false);
-        val sql = "insert into $tableName (name, description) values ($name, $description);"
+        val sql = "insert into $tableName (step, instruction, recipe_id) values ($step, $instruction, $recipe_id);"
         with(connection) {
             createStatement().execute(sql)
             connection.commit()
         }
     }
 
-    fun getAll(): List<CategoryEntity> {
+    fun getAll(): List<InstructionEntity> {
         val properties = Properties()
 
         //Populate the properties file with user name and password
@@ -68,7 +70,7 @@ class CategoryCalls {
             }
     }
 
-    fun save(newCategory: CategoryEntity) {
+    fun save(newTuple: InstructionEntity) {
         val properties = Properties()
 
         //Populate the properties file with user name and password
@@ -82,8 +84,9 @@ class CategoryCalls {
             .getConnection("jdbc:mysql://localhost:3306/recipesdb", properties)
             .use { connection ->
                 insertRow(connection,
-                    "'${newCategory.name}'",
-                    "'${newCategory.description}'")
+                    newTuple.step,
+                    "'${newTuple.instruction}'",
+                    newTuple.recipe_id)
             }
     }
 

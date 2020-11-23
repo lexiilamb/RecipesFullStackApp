@@ -24,7 +24,7 @@ export class CategoriesComponent implements OnInit {
     });
 
     this.addForm = this.formBuilder.group({
-      category: ['', Validators.required],
+      name: ['', Validators.required],
       description: ['', Validators.required],
     });
   }  

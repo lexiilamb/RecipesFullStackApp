@@ -45,4 +45,47 @@ export class RecipeService {
     return this.http.delete(`${this.url}/categories/${id}`);
   }
 
+  getFoodGroups(): Observable<any> {
+    return this.http.get(`${this.url}/food-groups`);
+  }
+
+  // saveFoodGroup(form: FormGroup): Observable<any> {
+  //   return this.http.post(`${this.url}/food-groups`, form);
+  // }
+
+  // deleteFoodGroup(id: number): Observable<any> {
+  //   return this.http.delete(`${this.url}/food-groups/${id}`);
+  // }
+
+  getIngredients(): Observable<any> {
+    return this.http.get(`${this.url}/ingredients`);
+  }
+
+  // saveIngredient(form: FormGroup): Observable<any> {
+  //   return this.http.post(`${this.url}/ingredient`, form);
+  // }
+
+  // deleteIngredient(id: number): Observable<any> {
+  //   return this.http.delete(`${this.url}/ingredient/${id}`);
+  // }
+
+  getIngredientsLists(): Observable<any> {
+    return this.http.get(`${this.url}/ingredients-lists`);
+  }
+
+  // saveIngredientsList(form: FormGroup): Observable<any> {
+  //   return this.http.post(`${this.url}/ingredients-lists`, form);
+  // }
+
+  // deleteIngredientsList(id: number): Observable<any> {
+  //   return this.http.delete(`${this.url}/ingredients-lists/${id}`);
+  // }
+
+  getInstructions(): Observable<any> {
+    return this.http.get(`${this.url}/instructions`);
+  }
+
+  getEquipment(): Observable<any> {
+    return this.http.get(`${this.url}/equipment`);
+  }
 }

@@ -18,9 +18,9 @@ class IngredientCalls {
         val rs = connection.createStatement().executeQuery(sql)
 
         while (rs.next()) {
-            var tuple = IngredientEntity(ingredient_id = rs.getInt("appliance_id"),
+            var tuple = IngredientEntity(ingredient_id = rs.getInt("ingredient_id"),
                 name = rs.getString("name"),
-                food_group = rs.getString("name")
+                food_group = rs.getString("food_group")
             )
 
             resultList.add(tuple)
@@ -31,12 +31,10 @@ class IngredientCalls {
     
     fun insertTableData(connection: Connection) {
         insertRow(connection, "'Steak'", "'Meat'")
-        insertRow(connection, "'Potatoes'", "'Vegetables'")
-        insertRow(connection, "'Chicken'", "'Meat'")
-        insertRow(connection, "'Pineapple'", "'Vegetables'")
-        insertRow(connection, "'Carrots'", "'Meat'")
-        insertRow(connection, "'Peanuts'", "'Legumes '")
-        insertRow(connection, "'Condensed Milk'", "'Dairy'")
+        insertRow(connection, "'Olvie Oil'", "'Oils and Fats'")
+        insertRow(connection, "'Butter'", "'Oils and Fats'")
+        insertRow(connection, "'Garlic'", "'Vegetables'")
+        insertRow(connection, "'Parsley'", "'Vegetables'")
 
     }
 

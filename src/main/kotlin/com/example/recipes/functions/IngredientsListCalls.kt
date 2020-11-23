@@ -20,10 +20,11 @@ class IngredientsListCalls {
         while (rs.next()) {
             var tuple = IngredientsListEntity(
                 ingredients_list_id = rs.getInt("ingredients_list_id"),
-                ingredient = rs.getString("ingredient"),
                 recipe_id = rs.getInt("recipe_id"),
+                ingredient = rs.getString("ingredient"),
+                description = rs.getString("description"),
                 measurement_type = rs.getString("measurement_type"),
-                measurement_amount = rs.getInt("measurement_amount")
+                measurement_amount = rs.getDouble("measurement_amount")
             )
 
             resultList.add(tuple)
@@ -33,19 +34,22 @@ class IngredientsListCalls {
     }
     
     fun insertTableData(connection: Connection) {
-        insertRow(connection, "'Steak'", 1, "'Pound'", 2)
-        insertRow(connection, "'Potatoes'", 4, "'Cups'", 4)
-
+        insertRow(connection, 1, "'Steak'", "'Sirloin'", "'Pound'", 0.25)
+        insertRow(connection, 1, "'Olive Oil'", "'-'","'Tablespoon'", 1.0)
+        insertRow(connection, 1, "'Butter'", "'-'", "'Tablespoon'", 2.0)
+        insertRow(connection, 1, "'Garlic'", "'Minced'", "'Teaspoon'", 2.0)
+        insertRow(connection, 1, "'Parsley'", "'Minced'", "'Tablespoon'", 1.0)
     }
 
     fun insertRow(connection: Connection,
-                  ingredient: String,
                   recipe_id: Int,
+                  ingredient: String,
+                  description: String,
                   measurement_type: String,
-                  measurement_amount: Int) {
+                  measurement_amount: Double) {
 
         connection.setAutoCommit(false);
-        val sql = "insert into $tableName (ingredient, recipe_id, measurement_type, measurement_amount) values ($ingredient, $recipe_id, $measurement_type, $measurement_amount);"
+        val sql = "insert into $tableName (recipe_id, ingredient, description, measurement_type, measurement_amount) values ($recipe_id, $ingredient, $description, $measurement_type, $measurement_amount);"
         with(connection) {
             createStatement().execute(sql)
             connection.commit()
@@ -83,8 +87,9 @@ class IngredientsListCalls {
             .getConnection("jdbc:mysql://localhost:3306/recipesdb", properties)
             .use { connection ->
                 insertRow(connection,
-                    "'${newTuple.ingredient}'",
                     newTuple.recipe_id,
+                    "'${newTuple.ingredient}'",
+                    "'${newTuple.description}'",
                     "'${newTuple.measurement_type}'",
                     newTuple.measurement_amount)
             }

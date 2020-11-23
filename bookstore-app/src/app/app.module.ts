@@ -9,6 +9,11 @@ import { CategoriesComponent } from './categories/categories.component';
 import { RecipesComponent } from './recipes/recipes.component';
 import { CreateDbComponent } from './create-db/create-db.component';
 import { QueriesComponent } from './queries/queries.component';
+import { FoodGroupsComponent } from './food-groups/food-groups.component';
+import { IngredientsComponent } from './ingredients/ingredients.component';
+import { IngredientsListsComponent } from './ingredients-lists/ingredients-lists.component';
+import { InstructionsComponent } from './instructions/instructions.component';
+import { EquipmentComponent } from './equipment/equipment.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +21,12 @@ import { QueriesComponent } from './queries/queries.component';
     RecipesComponent,
     CategoriesComponent,
     CreateDbComponent,
-    QueriesComponent
+    QueriesComponent,
+    FoodGroupsComponent,
+    IngredientsComponent,
+    IngredientsListsComponent,
+    InstructionsComponent,
+    EquipmentComponent
   ],
   imports: [
     BrowserModule,
