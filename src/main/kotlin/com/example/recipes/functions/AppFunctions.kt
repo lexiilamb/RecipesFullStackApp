@@ -152,7 +152,6 @@ class AppFunctions {
     private fun prepareTable(connection: Connection) {
         val metaData = connection.metaData
         tables.forEach { table ->
-            println(table[0])
             val rs = metaData.getTables(null, SCHEMA, table[0], null)
 
             if (!rs.next()) {

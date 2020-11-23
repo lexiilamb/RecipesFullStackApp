@@ -14,7 +14,7 @@ class CategoryCalls {
     fun queryTable(SCHEMA: String, connection: Connection): List<CategoryEntity> {
         var resultList = ArrayList<CategoryEntity>()
 
-        val sql = "SELECT * FROM $SCHEMA.$tableName"
+        val sql = "SELECT * FROM $SCHEMA.$tableName ORDER BY name ASC"
         val rs = connection.createStatement().executeQuery(sql)
 
         while (rs.next()) {
@@ -29,14 +29,14 @@ class CategoryCalls {
     }
     
     fun insertTableData(connection: Connection) {
+        insertRow(connection, "'Soup'", "'Ramen, pho'")
         insertRow(connection, "'Baking'", "'Cakes, pastries recipes'")
         insertRow(connection, "'Beef'", "'Ground beef and steak recipes'")
+        insertRow(connection, "'Vegetarian'", "''")
         insertRow(connection, "'Breakfast'", "''")
-        insertRow(connection, "'Chicken'", "'Legs, wings, thighs, and breast recieps'")
-        insertRow(connection, "'Soup'", "'Ramen, pho'")
         insertRow(connection, "'Muffins'", "''")
         insertRow(connection, "'Pork'", "''")
-        insertRow(connection, "'Vegetarian'", "''")
+        insertRow(connection, "'Chicken'", "'Legs, wings, thighs, and breast recieps'")
     }
 
     fun insertRow(connection: Connection,

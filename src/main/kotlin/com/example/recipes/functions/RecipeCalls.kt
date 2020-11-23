@@ -35,7 +35,7 @@ class RecipeCalls {
         insertRow(connection, "'Garlic Butter Steak Bites'", "'Beef'", "'Made with garlic butter sauce'", 5, 10, 4)
         insertRow(connection, "'Meatloaf'", "'Beef'",  "'Quick to make'", 10, 70, 8)
         insertRow(connection, "'Banana Muffins'", "'Muffins'",  "'With or without nuts'", 10, 20, 12)
-        insertRow(connection, "'Perogies'", "'Vegetarian'",  "'with potatoes'", 5, 15, 1)
+        insertRow(connection, "'Maple-Baked Apple Chicken'", "'Chicken'",  "'Sweet and savory'", 15, 25, 4)
     }
 
     fun insertRow(connection: Connection,
@@ -56,7 +56,7 @@ class RecipeCalls {
 
     fun getAll(): List<RecipeEntity> {
         val properties = Properties()
-        val query = "SELECT * FROM $SCHEMA.$tableName"
+        val query = "SELECT * FROM $SCHEMA.$tableName ORDER BY title ASC"
 
         //Populate the properties file with user name and password
         with(properties) {

@@ -14,7 +14,7 @@ class FoodGroupCalls {
     fun queryTable(SCHEMA: String, connection: Connection): List<FoodGroupEntity> {
         var resultList = ArrayList<FoodGroupEntity>()
 
-        val sql = "SELECT * FROM $SCHEMA.$tableName"
+        val sql = "SELECT * FROM $SCHEMA.$tableName ORDER BY name ASC"
         val rs = connection.createStatement().executeQuery(sql)
 
         while (rs.next()) {
