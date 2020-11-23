@@ -33,8 +33,8 @@ class RecipeCalls {
 
     fun insertTableData(connection: Connection) {
         insertRow(connection, "'Garlic Butter Steak Bites'", "'Beef'", "'Made with garlic butter sauce'", 5, 10, 4)
-        insertRow(connection, "'Good Pie'", "'Baking'",  "'pumpkin'", 5, 60, 1)
-        insertRow(connection, "'mac&cheese'", "'Vegetarian'",  "'super cheesy'", 5, 10, 8)
+        insertRow(connection, "'Meatloaf'", "'Beef'",  "'Quick to make'", 10, 70, 8)
+        insertRow(connection, "'Banana Muffins'", "'Muffins'",  "'With or without nuts'", 10, 20, 12)
         insertRow(connection, "'Perogies'", "'Vegetarian'",  "'with potatoes'", 5, 15, 1)
     }
 

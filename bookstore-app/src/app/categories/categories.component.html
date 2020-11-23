@@ -1,29 +1,32 @@
 <div class="col-md-6 user-container">
-    <h2 class="text-center">Categories</h2>
-  </div>
-  <div>
-    <table class="table main-div">
-      <tr>
-        <th>ID</th>
-        <th>Category</th>
-        <th>Description</th>
-      </tr>
-      <tr align="center" *ngFor="let category of tableData">
-        <td>
-          {{category.category_id}}
-        </td>
-        <td>
-          {{category.name}}
-        </td>
-        <td>
-          {{category.description}}
-        </td>
-        <td>
-          <button (click)="delete(category)">Delete</button>
-        </td>
-      </tr>
-    </table>
-  </div>
+  <h2 class="text-center">Categories</h2>
+</div>
+<table class="table table-bordered table-striped">
+  <thead class="thead-dark">
+    <tr>
+      <th>ID</th>
+      <th>Category</th>
+      <th>Description</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let category of tableData">
+      <td>
+        {{category.category_id}}
+      </td>
+      <td>
+        {{category.name}}
+      </td>
+      <td>
+        {{category.description}}
+      </td>
+      <td>
+        <button class="btn btn-raised btn-danger btn-sm" (click)="delete(category)">Delete</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
   
   <div class="col-md-6 user-container">
     <h2 class="text-center">Add Category</h2>
@@ -42,7 +45,7 @@
       </div>
       <br/>
   
-      <button class="btn btn-success" type="submit">Add Category</button> 
+      <button class="btn btn-raised btn-success" type="submit">Add Category</button> 
       <p>{{saveResponse}}</p>
     </form>
   </div>

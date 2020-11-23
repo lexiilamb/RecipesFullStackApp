@@ -1,33 +1,35 @@
 <div class="col-md-6 user-container">
-    <h2 class="text-center">Food Groups</h2>
-  </div>
-  <div>
-    <table class="table main-div">
-      <tr>
-        <th>ID</th>
-        <th>Recipe ID</th>
-        <th>Step</th>
-        <th>Instruction</th>
-      </tr>
-      <tr align="center" *ngFor="let instruction of tableData">
-        <td>
-          {{instruction.instruction_id}}
-        </td>
-        <td>
-          {{instruction.recipe_id}}
-        </td>
-        <td>
-          {{instruction.step}}
-        </td>
-        <td>
-          {{instruction.instruction}}
-        </td>
-        <!-- <td>
-          <button (click)="delete(group)">Delete</button>
-        </td> -->
-      </tr>
-    </table>
-  </div>
+<h2 class="text-center">Food Groups</h2>
+</div>
+<table class="table table-bordered table-striped w-auto">
+  <thead class="thead-dark">
+    <tr>
+      <th>ID</th>
+      <th>Recipe ID</th>
+      <th>Step</th>
+      <th>Instruction</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let instruction of tableData">
+      <td>
+        {{instruction.instruction_id}}
+      </td>
+      <td>
+        {{instruction.recipe_id}}
+      </td>
+      <td>
+        {{instruction.step}}
+      </td>
+      <td>
+        {{instruction.instruction}}
+      </td>
+      <!-- <td>
+        <button (click)="delete(group)">Delete</button>
+      </td> -->
+    </tr>
+  </tbody>      
+</table>
   
   <!-- <div class="col-md-6 user-container">
     <h2 class="text-center">Add Food Group</h2>

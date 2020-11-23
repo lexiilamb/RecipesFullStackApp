@@ -39,6 +39,23 @@ class IngredientsListCalls {
         insertRow(connection, 1, "'Butter'", "'-'", "'Tablespoon'", 2.0)
         insertRow(connection, 1, "'Garlic'", "'Minced'", "'Teaspoon'", 2.0)
         insertRow(connection, 1, "'Parsley'", "'Minced'", "'Tablespoon'", 1.0)
+        insertRow(connection, 2, "'Beef'", "'Ground'", "'Pound'", 1.25)
+        insertRow(connection, 2, "'Egg'", "''", "''", 1.0)
+        insertRow(connection, 2, "'Onion'", "'Chopped'", "''", 1.0)
+        insertRow(connection, 2, "'Milk'", "''", "'Cup'", 1.0)
+        insertRow(connection, 2, "'Bread Crumbs'", "'Dried'", "'Cup'", 1.0)
+        insertRow(connection, 2, "'Brown Sugar'", "''", "'Tablespoon'", 2.0)
+        insertRow(connection, 2, "'Mustard'", "'Prepared Mustard'", "'Tablespoon'", 2.0)
+        insertRow(connection, 2, "'Ketchup'", "''", "'Cup'", 0.33)
+        insertRow(connection, 3, "'Bananas'", "'Ripened'", "'Large'", 3.0)
+        insertRow(connection, 3, "'White Sugar'", "'Ripened'", "'Cup'", 0.5)
+        insertRow(connection, 3, "'Egg'", "''", "''", 1.0)
+        insertRow(connection, 3, "'Baking Soda'", "''", "'Teaspoon'", 1.0)
+        insertRow(connection, 3, "'Baking Powder'", "''", "'Teaspoon'", 1.0)
+        insertRow(connection, 3, "'Flour'", "'All-Purpose'", "'Cup'", 1.5)
+        insertRow(connection, 3, "'Butter'", "'Melted'", "'Cup'", 0.33)
+        insertRow(connection, 3, "'Nuts'", "'Optional'", "''", 0.0)
+        insertRow(connection, 3, "'Chocolate Chips'", "'Optional'", "''", 0.0)
     }
 
     fun insertRow(connection: Connection,

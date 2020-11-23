@@ -1,8 +1,8 @@
 <div class="col-md-6 user-container">
   <h2 class="text-center">Recipes</h2>
 </div>
-<div>
-  <table class="table main-div">
+<table class="table table-bordered table-striped">
+  <thead class="thead-dark">
     <tr>
       <th>ID</th>
       <th>Title</th>
@@ -11,8 +11,11 @@
       <th>Prep Time</th>
       <th>Cook Time</th>
       <th>Servings</th>
+      <th></th>
     </tr>
-    <tr align="center" *ngFor="let recipe of tableData">
+  </thead>
+  <tbody>
+    <tr *ngFor="let recipe of tableData">
       <td>
         {{recipe.recipe_id}}
       </td>
@@ -35,11 +38,11 @@
         {{recipe.servings}}
       </td>
       <td>
-        <button (click)="delete(recipe)">Delete</button>
+        <button class="btn btn-raised btn-danger btn-sm" (click)="delete(recipe)">Delete</button>
       </td>
     </tr>
-  </table>
-</div>
+  </tbody>
+</table>
 
 <div class="col-md-6 user-container">
   <h2 class="text-center">Add Recipe</h2>
@@ -86,7 +89,7 @@
     </div>
     <br/>
 
-    <button class="btn btn-success" type="submit">Add Recipe</button> 
+    <button class="btn btn-raised btn-success" type="submit">Add Recipe</button> 
     <p>{{saveResponse}}</p>
   </form>
 </div>

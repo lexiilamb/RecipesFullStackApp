@@ -1,42 +1,43 @@
 <div class="col-md-6 user-container">
-    <h2 class="text-center">Ingredients Lists</h2>
-  </div>
-  <div>
-    <table class="table main-div">
-      <tr>
-        <th>ID</th>
-        <th>Recipe ID</th>
-        <th>Ingredient</th>
-        <th>Description</th>
-        <th>Measurement Type</th>
-        <th>Measurement Amount</th>
-      </tr>
-      <tr align="center" *ngFor="let listItem of tableData">
-        <td>
-          {{listItem.ingredients_list_id}}
-        </td>
-        <td>
-          {{listItem.recipe_id}}
-        </td>
-        <td>
-          {{listItem.ingredient}}
-        </td>
-        <td>
-          {{listItem.description}}
-        </td>
-        <td>
-          {{listItem.measurement_type}}
-        </td>
-        <td>
-          {{listItem.measurement_amount}}
-        </td>
-        <!-- <td>
-          <button (click)="delete(group)">Delete</button>
-        </td> -->
-      </tr>
-    </table>
-  </div>
-  
+<h2 class="text-center">Ingredients Lists</h2>
+</div>
+<table class="table table-bordered table-striped">
+  <thead class="thead-dark">
+    <tr>
+      <th>ID</th>
+      <th>Recipe ID</th>
+      <th>Ingredient</th>
+      <th>Description</th>
+      <th>Measurement Type</th>
+      <th>Measurement Amount</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let listItem of tableData">
+      <td>
+        {{listItem.ingredients_list_id}}
+      </td>
+      <td>
+        {{listItem.recipe_id}}
+      </td>
+      <td>
+        {{listItem.ingredient}}
+      </td>
+      <td>
+        {{listItem.description}}
+      </td>
+      <td>
+        {{listItem.measurement_type}}
+      </td>
+      <td>
+        {{listItem.measurement_amount}}
+      </td>
+      <!-- <td>
+        <button (click)="delete(group)">Delete</button>
+      </td> -->
+    </tr>
+  </tbody>
+</table>  
   <!-- <div class="col-md-6 user-container">
     <h2 class="text-center">Add Food Group</h2>
     <form [formGroup]="addForm" (ngSubmit)="save()">

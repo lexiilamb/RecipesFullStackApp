@@ -30,11 +30,24 @@ class IngredientCalls {
     }
     
     fun insertTableData(connection: Connection) {
-        insertRow(connection, "'Steak'", "'Meat'")
+        insertRow(connection, "'Steak'", "'Protein'")
         insertRow(connection, "'Olvie Oil'", "'Oils and Fats'")
         insertRow(connection, "'Butter'", "'Oils and Fats'")
         insertRow(connection, "'Garlic'", "'Vegetables'")
         insertRow(connection, "'Parsley'", "'Vegetables'")
+        insertRow(connection, "'Ground Beef'", "'Protein'")
+        insertRow(connection, "'Egg'", "'Protein'")
+        insertRow(connection, "'Onion'", "'Vegetables'")
+        insertRow(connection, "'Milk'", "'Dairy'")
+        insertRow(connection, "'Bread Crumbs'", "'Grains'")
+        insertRow(connection, "'Brown Sugar'", "'-'")
+        insertRow(connection, "'Mustard'", "'-'")
+        insertRow(connection, "'Ketchup'", "'-'")
+        insertRow(connection, "'Bananas'", "'Fruits'")
+        insertRow(connection, "'White Sugar'", "'-'")
+        insertRow(connection, "'Baking Soda'", "'-'")
+        insertRow(connection, "'Baking Powder'", "'-'")
+        insertRow(connection, "'Flour'", "'-'")
 
     }
 

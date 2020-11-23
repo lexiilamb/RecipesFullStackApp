@@ -1,29 +1,31 @@
 <div class="col-md-6 user-container">
-    <h2 class="text-center">Equipment</h2>
-  </div>
-  <div>
-    <table class="table main-div">
-      <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-      <tr align="center" *ngFor="let equpment of tableData">
-        <td>
-          {{equpment.equipment_id}}
-        </td>
-        <td>
-          {{equpment.name}}
-        </td>
-        <td>
-          {{equpment.description}}
-        </td>
-        <!-- <td>
-          <button (click)="delete(group)">Delete</button>
-        </td> -->
-      </tr>
-    </table>
-  </div>
+  <h2 class="text-center">Equipment</h2>
+</div>
+<table class="table table-bordered table-striped">
+  <thead class="thead-dark">
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let equpment of tableData">
+      <td>
+        {{equpment.equipment_id}}
+      </td>
+      <td>
+        {{equpment.name}}
+      </td>
+      <td>
+        {{equpment.description}}
+      </td>
+      <!-- <td>
+        <button (click)="delete(group)">Delete</button>
+      </td> -->
+    </tr>
+  </tbody>
+</table>
   
   <!-- <div class="col-md-6 user-container">
     <h2 class="text-center">Add Food Group</h2>

@@ -1,24 +1,25 @@
+<br/>
 <h1 align='center'>Recipes Database</h1>
 
-<table class="table main-div">
-    <div align='center'>
-        <td class="paddingBetweenCols">
-            <h4>Tables</h4>
-            <button class="nav-link" routerLink="/recipes">Recipes</button>
-            <button class="nav-link" routerLink="/categories">Categories</button>
-            <button class="nav-link" routerLink="/food-groups">Food Groups</button>
-            <button class="nav-link" routerLink="/ingredients">Ingredients</button>
-            <button class="nav-link" routerLink="/ingredients-lists">Ingredients Lists</button>
-            <button class="nav-link" routerLink="/instructions">Instructions</button>
-            <button class="nav-link" routerLink="/equipment">Equipment</button>
-        </td>
-        <td class="paddingBetweenCols">
-            <h4>Queries</h4>
-            <button class="nav-link" routerLink="/">Queries</button>
-            <button class="nav-link" routerLink="/create-db">Reset Tables</button>
-        </td>
+<hr/>
+
+<div class="container">
+    <h4 class="row justify-content-center">Tables</h4>
+    <div class="row justify-content-center justify-content-between">
+        <button class="nav-link btn btn-sm btn-info" routerLink="/recipes">Recipes</button>
+        <button class="nav-link btn btn-sm btn-info" routerLink="/categories">Categories</button>
+        <button class="nav-link btn btn-sm btn-info" routerLink="/food-groups">Food Groups</button>
+        <button class="nav-link btn btn-sm btn-info" routerLink="/ingredients">Ingredients</button>
+        <button class="nav-link btn btn-sm btn-info" routerLink="/ingredients-lists">Ingredients Lists</button>
+        <button class="nav-link btn btn-sm btn-info" routerLink="/instructions">Instructions</button>
+        <button class="nav-link btn btn-sm btn-info" routerLink="/equipment">Equipment</button>
+        <button class="nav-link btn btn-sm btn-secondary" routerLink="/">Queries</button>
+        <button class="nav-link btn btn-sm btn-secondary" routerLink="/create-db">Reset Tables</button>       
     </div>
-</table>
+</div>
+
+<br/>
+<br/>
 
 <router-outlet></router-outlet>
 

@@ -36,7 +36,16 @@ class InstructionCalls {
         insertRow(connection, 2, "'Place the steak in the pan in a single layer; you may have to work in batches depending on the size of your pan. Cook for 3-4 minutes, stirring occasionally, until golden brown. Repeat with remaining meat if needed.'", 1)
         insertRow(connection, 3, "'Add the butter and garlic to the pan; cook for 1-2 minutes, stirring to coat the meat in the sauce.'", 1)
         insertRow(connection, 4, "'Sprinkle with parsley and serve.'", 1)
-        insertRow(connection, 1, "'blank'", 1)
+        insertRow(connection, 1, "'Preheat oven to 350 degrees F (175 degrees C).'", 2)
+        insertRow(connection, 2, "'In a large bowl, combine the beef, egg, onion, milk and bread OR cracker crumbs.'", 2)
+        insertRow(connection, 3, "'Season with salt and pepper to taste and place in a lightly greased 9x5-inch loaf pan, or form into a loaf and place in a lightly greased 9x13-inch baking dish.'", 2)
+        insertRow(connection, 4, "'In a separate small bowl, combine the brown sugar, mustard and ketchup. Mix well and pour over the meatloaf.'", 2)
+        insertRow(connection, 5, "'Bake at 350 degrees F (175 degrees C) for 1 hour.'", 2)
+        insertRow(connection, 1, "'Mash bananas, add sugar and the slightly beaten egg.'", 3)
+        insertRow(connection, 2, "'Stir in melted butter.'", 3)
+        insertRow(connection, 3, "'Stir in dry ingredients.'", 3)
+        insertRow(connection, 4, "'Spoon into medium size muffin pan (I use the paper muffin cups inside pan).'", 3)
+        insertRow(connection, 5, "'Bake 20 minutes at 350F degrees - 375F degrees.'", 3)
 
     }
 
