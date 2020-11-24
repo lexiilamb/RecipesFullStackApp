@@ -13,8 +13,12 @@ export class RecipeService {
   constructor(private http: HttpClient) {
   }
   
-  customQuery(query: String): Observable<any> {
-    return this.http.post(`${this.url}`, query, {responseType: 'text'});
+  customRecipeQuery(query: String): Observable<any> {
+    return this.http.post(`${this.url};/r-query`, query);
+  }
+  
+  customIngredientQuery(query: String): Observable<any> {
+    return this.http.post(`${this.url}/i-query`, query);
   }
 
   reCreateDatabases(): Observable<any> {

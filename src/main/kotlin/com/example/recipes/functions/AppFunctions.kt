@@ -220,21 +220,4 @@ class AppFunctions {
             connection.commit()
         }
     }
-
-    fun runQuery(query: String): List<RecipeEntity> {
-        val properties = Properties()
-
-        //Populate the properties file with user name and password
-        with(properties) {
-            put("user", "root")
-            put("password", "root")
-        }
-
-        //Open a connection to the database
-        DriverManager
-            .getConnection("jdbc:mysql://localhost:3306/recipesdb", properties)
-            .use { connection ->
-                return recipeCalls.queryTable(query, SCHEMA, connection)
-            }
-    }
 }

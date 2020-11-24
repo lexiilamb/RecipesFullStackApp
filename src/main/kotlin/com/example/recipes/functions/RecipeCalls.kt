@@ -11,7 +11,7 @@ class RecipeCalls {
     val tableName = "recipes"
     val tupleId = "recipe_id"
 
-    fun queryTable(query: String, SCHEMA: String, connection: Connection): List<RecipeEntity> {
+    fun queryTable(query: String, connection: Connection): List<RecipeEntity> {
         var resultList = ArrayList<RecipeEntity>()
 
         val rs = connection.createStatement().executeQuery(query)
@@ -68,7 +68,7 @@ class RecipeCalls {
         DriverManager
             .getConnection("jdbc:mysql://localhost:3306/recipesdb", properties)
             .use { connection ->
-                return queryTable(query, SCHEMA, connection)
+                return queryTable(query, connection)
             }
     }
 
@@ -120,7 +120,8 @@ class RecipeCalls {
 
 //                deleteDependencies(id, "categories", connection)
                 deleteDependencies(id, "ingredients_lists", connection)
-                deleteDependencies(id, "appliances", connection)
+                deleteDependencies(id, "instructions", connection)
+//                deleteDependencies(id, "equipment", connection)
             }
 
         //Open a connection to the database

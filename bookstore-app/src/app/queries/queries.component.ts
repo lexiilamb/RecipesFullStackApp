@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { RecipeEntity } from '../models/recipes';
 import { RecipeService } from '../recipe-service.service';
 
 @Component({
@@ -7,19 +8,29 @@ import { RecipeService } from '../recipe-service.service';
   styleUrls: ['./queries.component.scss']
 })
 export class QueriesComponent implements OnInit {
-  response;
-  query: String = "";
+  responseRecipe: RecipeEntity[];
+  responseIngredient;
+  queryr: String = "";
+  queryi: String = "";
 
   constructor(private recipeService: RecipeService) { }
 
   ngOnInit(): void {
   }
 
-  runQuery(){
-    this.recipeService.customQuery(this.query)
+  runRecipeQuery(){
+    this.recipeService.customRecipeQuery(this.queryr)
     .subscribe(res => {
       console.log(res)
-      this.response = res
+      this.responseRecipe = res
+    })
+  }
+
+  runIngredientQuery(){
+    this.recipeService.customIngredientQuery(this.queryi)
+    .subscribe(res => {
+      console.log(res)
+      this.responseIngredient = res
     })
   }
 
