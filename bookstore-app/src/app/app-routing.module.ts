@@ -13,7 +13,7 @@ import { RecipesComponent } from './recipes/recipes.component';
 
 
 const routes: Routes = [
-  {path: '', pathMatch: 'full', component: QueriesComponent},
+  {path: 'full-recipes', pathMatch: 'full', component: QueriesComponent},
   {path: 'create-db', pathMatch: 'full', component: CreateDbComponent},
   {path: 'recipes', pathMatch: 'full', component: RecipesComponent},
   {path: 'categories', pathMatch: 'full', component: CategoriesComponent},

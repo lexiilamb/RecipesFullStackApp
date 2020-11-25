@@ -3,6 +3,7 @@ package com.example.recipes.api
 import com.example.recipes.functions.AppFunctions
 import com.example.recipes.functions.Queries
 import com.example.recipes.models.IngredientsListEntity
+import com.example.recipes.models.InstructionEntity
 import com.example.recipes.models.RecipeEntity
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
@@ -25,9 +26,14 @@ class AppController{
         return queries.recipes(query)
     }
 
-    @PostMapping("/i-query")
-    fun queryIngreientsLists(@RequestBody query: String): List<IngredientsListEntity> {
-        return queries.ingredients(query)
+    @PostMapping("/ingredient-query")
+    fun queryIngreientsLists(@RequestBody recipeTitle: String): List<IngredientsListEntity> {
+        return queries.ingredients(recipeTitle)
+    }
+
+    @PostMapping("/instruction-query")
+    fun queryInstructionsLists(@RequestBody recipeTitle: String): List<InstructionEntity> {
+        return queries.instructions(recipeTitle)
     }
 
     @ExceptionHandler(IllegalArgumentException::class)

@@ -17,3 +17,10 @@ hr {
     border: 0;
     border-top: 5px solid rgb(0, 0, 0);
   }
+
+  .btn-group-xs > .btn, .btn-xs {
+    padding: .5rem .4rem;
+    font-size: .875rem;
+    line-height: .5;
+    border-radius: .2rem;
+  }

@@ -18,7 +18,11 @@ export class RecipeService {
   }
   
   customIngredientQuery(query: String): Observable<any> {
-    return this.http.post(`${this.url}/i-query`, query);
+    return this.http.post(`${this.url}/ingredient-query`, query);
+  }
+
+  customInstructionQuery(query: String): Observable<any> {
+    return this.http.post(`${this.url}/instruction-query`, query);
   }
 
   reCreateDatabases(): Observable<any> {

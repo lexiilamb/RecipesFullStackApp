@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { EquipmentEntity } from '../models/equipment';
+import { IngredientsListEntity } from '../models/ingredients-lists';
+import { InstructionEntity } from '../models/instructions';
 import { RecipeEntity } from '../models/recipes';
 import { RecipeService } from '../recipe-service.service';
 
@@ -7,31 +10,46 @@ import { RecipeService } from '../recipe-service.service';
   templateUrl: './queries.component.html',
   styleUrls: ['./queries.component.scss']
 })
-export class QueriesComponent implements OnInit {
-  responseRecipe: RecipeEntity[];
-  responseIngredient;
-  queryr: String = "";
-  queryi: String = "";
+export class QueriesComponent implements OnInit {;
+  recipeData: RecipeEntity[];
+  equipmentData: EquipmentEntity[];
+  ingredientsData: IngredientsListEntity[];
+  instructionsData: InstructionEntity[];
 
   constructor(private recipeService: RecipeService) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
+    this.recipeService.getRecipes().subscribe(data => {
+      this.recipeData = data;
+    });
   }
 
-  runRecipeQuery(){
-    this.recipeService.customRecipeQuery(this.queryr)
+  getFullRecipe(recipeTitle: String) {
+    this.getIngredients(recipeTitle)
+    this.getInstructions(recipeTitle)
+  }
+
+  getIngredients(recipeTitle: String){
+    this.recipeService.customIngredientQuery(recipeTitle)
     .subscribe(res => {
-      console.log(res)
-      this.responseRecipe = res
+      this.ingredientsData = res
     })
   }
 
-  runIngredientQuery(){
-    this.recipeService.customIngredientQuery(this.queryi)
+  getInstructions(recipeTitle: String){
+    this.recipeService.customInstructionQuery(recipeTitle)
     .subscribe(res => {
-      console.log(res)
-      this.responseIngredient = res
+      this.instructionsData = res
     })
   }
 
+  ingredientMeasurement(amount: number): number{
+    if (amount==0) return null
+    else return amount
+  }
+
+  ingredientDescription(desc: String): String{
+    if (desc=='') return null
+    else return '(' + desc + ')'
+  }
 }

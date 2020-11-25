@@ -1,59 +1,25 @@
-<!-- <h2>Custom Recipe Query</h2>
-
-<input type="text" placeholder="Enter query" [(ngModel)] = 'queryr' />
-<br/>
-<button (click)="runRecipeQuery()">Submit</button>
-
-<h2 class="text-center">Recipes</h2>
-<table class="table table-bordered table-striped">
-    <thead class="thead-dark">
-    <tr>
-        <th>ID</th>
-        <th>Title</th>
-        <th>Category</th>
-        <th>Description</th>
-        <th>Prep Time</th>
-        <th>Cook Time</th>
-        <th>Servings</th>
-        <th></th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let recipe of responseRecipe">
-        <td>
-        {{recipe.recipe_id}}
-        </td>
-        <td>
-        {{recipe.title}}
-        </td>
-        <td>
-        {{recipe.category}}
-        </td>
-        <td>
-        {{recipe.description}}
-        </td>
-        <td>
-        {{recipe.prep_time}}
-        </td>
-        <td>
-        {{recipe.cook_time}}
-        </td>
-        <td>
-        {{recipe.servings}}
-        </td>
-        <td>
-        <button class="btn btn-raised btn-danger btn-sm" (click)="delete(recipe)">Delete</button>
-        </td>
-    </tr>
-    </tbody>
-</table>
+<div class="container">
+    <div class="row justify-content-center justify-content-between" *ngFor="let recipe of recipeData">
+        <button class="nav-link btn btn-xs btn-secondary" (click)="getFullRecipe(recipe.title)"> {{recipe.title}} </button>
+    </div>
+</div>
 
 <br/>
-<br/>
 
-<h2>Custom Ingredients Query</h2>
-
-<input type="text" placeholder="Enter query" [(ngModel)] = 'queryi' />
-<br/>
-<button (click)="runIngredientQuery()">Submit</button>
-<p>{{responseIngredient}}</p> -->
+<div style="margin: 2rem">
+    <div class="row">
+        <div class="col">
+            <h2 class="text-center">Ingredients List:</h2>
+            <div *ngFor="let ingredient of ingredientsData">
+                * {{ingredientMeasurement(ingredient.measurement_amount)}} {{ingredient.measurement_type}} {{ingredient.ingredient}} {{ingredientDescription(ingredient.description)}}
+            </div>
+        </div>
+        <br/>
+        <div class="col">
+            <h2 class="text-center">Instructions:</h2>
+            <div *ngFor="let instruction of instructionsData">
+                {{instruction.step}}) {{instruction.instruction}}
+            </div>
+        </div>
+    </div>
+</div>
