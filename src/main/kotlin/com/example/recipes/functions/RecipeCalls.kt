@@ -36,6 +36,7 @@ class RecipeCalls {
         insertRow(connection, "'Meatloaf'", "'Beef'",  "'Quick to make'", 10, 70, 8)
         insertRow(connection, "'Banana Muffins'", "'Muffins'",  "'With or without nuts'", 10, 20, 12)
         insertRow(connection, "'Maple-Baked Apple Chicken'", "'Chicken'",  "'Sweet and savory'", 15, 25, 4)
+        insertRow(connection, "'Pineapple Chicken Teriyaki'", "'Chicken'",  "'Marinated'", 10, 20, 4)
     }
 
     fun insertRow(connection: Connection,

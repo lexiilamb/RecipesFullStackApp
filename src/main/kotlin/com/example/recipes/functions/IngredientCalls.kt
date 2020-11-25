@@ -52,6 +52,9 @@ class IngredientCalls {
         insertRow(connection, "'Apple'", "'Fruit'")
         insertRow(connection, "'Syrup'", "'-'")
         insertRow(connection, "'Italian Dressing'", "'-'")
+        insertRow(connection, "'Soy Sauce'", "'-'")
+        insertRow(connection, "'Honey'", "'-'")
+        insertRow(connection, "'Ginger'", "'-'")
 
     }
 

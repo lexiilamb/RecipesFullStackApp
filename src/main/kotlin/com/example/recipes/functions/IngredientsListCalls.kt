@@ -61,6 +61,12 @@ class IngredientsListCalls {
         insertRow(connection, 4, "'Apples'", "'Red'", "'Cup'", 0.5)
         insertRow(connection, 4, "'Syrup'", "'Maple-flavored'", "'Cup'", 0.5)
         insertRow(connection, 4, "'Italian Dressing'", "'-'", "'Cup'", 0.33)
+        insertRow(connection, 5, "'Pineapple'", "'-'", "'Ounce'", 8.0)
+        insertRow(connection, 5, "'Soy Sauce'", "'Low Sodium'", "'Tablespoon'", 3.0)
+        insertRow(connection, 5, "'Honey'", "'-'", "'Tablespoon'", 2.0)
+        insertRow(connection, 5, "'Ginger'", "'Grated'", "'Teaspoon'", 1.0)
+        insertRow(connection, 5, "'Garlic'", "'Clove finely minced'", "'-'", 1.0)
+        insertRow(connection, 5, "'Chicken'", "'Boneless skinless breasts'", "'Pound'", 2.0)
     }
 
     fun insertRow(connection: Connection,
