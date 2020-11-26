@@ -102,7 +102,7 @@ class AppFunctions {
     private val ingredientCalls = IngredientCalls()
     private val ingredientsListCalls = IngredientsListCalls()
     private val instructionCalls = InstructionCalls()
-    private val applianceCalls = EquipmentCalls()
+    private val equipmentCalls = EquipmentCalls()
 
     fun createTables() {
         val properties = Properties()
@@ -136,7 +136,7 @@ class AppFunctions {
         ingredientCalls.insertTableData(connection)
         ingredientsListCalls.insertTableData(connection)
         instructionCalls.insertTableData(connection)
-        applianceCalls.insertTableData(connection)
+        equipmentCalls.insertTableData(connection)
     }
 
     private fun prepareTable(connection: Connection) {

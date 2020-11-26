@@ -36,7 +36,7 @@ class EquipmentCalls {
         insertRow(connection, "'Blender'", "'-'")
         insertRow(connection, "'Mixer'", "'-'")
         insertRow(connection, "'Frying Pan'", "'-'")
-        insertRow(connection, "'Baking Pan'", "'-'")
+        insertRow(connection, "'Baking Pan'", "'Mostly for baking recipes'")
 
     }
 
