@@ -1,5 +1,6 @@
 export class IngredientsListEntity {
     recipe_id: number;
+    recipe_title: string;
     ingredient: string;
     description: string;
     measurement_type: string;

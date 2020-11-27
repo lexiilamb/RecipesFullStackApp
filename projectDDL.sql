@@ -6,7 +6,7 @@ create database recipesdb;
 use recipesdb;
 
 
--- create tables 
+-- create 7 tables 
 create table recipes (
     recipe_id int not null auto_increment,
     title varchar(255) not null,
@@ -67,14 +67,8 @@ create table equipment (
     primary key (equipment_id)
 )
 
-create table recipe_equipment (
-    recipe_equipment_id int not null auto_increment,
-    name varchar(225) not null,
-    recipe_id int not null,
-    foreign key (recipe_id) references recipes(recipe_id),
-    primary key (recipe_equipment_id)
-)
-
+-- create index for recipe title
+CREATE INDEX recipe_title ON recipes (title);
 
 -- insert data into recipes table  
 -- Example tuple: ("'Meatloaf'", "'Beef'",  "'Quick to make'", 10, 70, 8)
@@ -107,3 +101,11 @@ insert into equipment (name, description) values ($name, $description);
 
 -- get all tuples from a table
 SELECT * FROM $SCHEMA.$tableName ORDER BY name ASC
+
+
+-- 3 VIEWS 
+-- 1) get all ingredients for a specific recipe 
+SELECT * FROM recipesdb.ingredients_lists WHERE recipe_id = (SELECT recipe_id FROM recipesdb.recipes WHERE title = '${recipeTitle}')
+
+-- 2) get all instructions for a specific recipe
+SELECT * FROM recipesdb.instructions WHERE recipe_id = (SELECT recipe_id FROM recipesdb.recipes WHERE title = '${recipeTitle}')

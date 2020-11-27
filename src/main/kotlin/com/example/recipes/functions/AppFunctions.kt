@@ -92,8 +92,7 @@ class AppFunctions {
         ingredientsTable,
         ingredientsListsTable,
         instructionsTable,
-        equipmentTable,
-        recipeEquipmentTable
+        equipmentTable
     )
 
     private val recipeCalls = RecipeCalls()
@@ -146,6 +145,11 @@ class AppFunctions {
 
             if (!rs.next()) {
                 createTable(connection, table[1])
+
+                if (table[0] == "recipes") {
+                    val sql = "CREATE INDEX recipe_title ON recipes (title);"
+                    createTable(connection, sql)
+                }
             } else {
                 truncateTable(connection, table[0])
             }

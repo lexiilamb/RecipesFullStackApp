@@ -14,13 +14,43 @@ class IngredientsListCalls {
     fun queryTable(SCHEMA: String, connection: Connection): List<IngredientsListEntity> {
         var resultList = ArrayList<IngredientsListEntity>()
 
-        val sql = "SELECT * FROM $SCHEMA.$tableName"
+//        val sql = "SELECT * FROM $SCHEMA.$tableName"
+        val sql = """
+            SELECT 
+                list.ingredient, 
+                list.ingredients_list_id, 
+                list.recipe_id, 
+                rec.title, 
+                list.description, 
+                list.measurement_type, 
+                list.measurement_amount 
+            FROM $SCHEMA.$tableName list
+            LEFT JOIN recipes rec ON list.recipe_id=rec.recipe_id
+            ORDER BY
+            (CASE
+                WHEN list.ingredients_list_id > 10 THEN rec.title
+                ELSE list.ingredient
+            END);
+        """.trimIndent()
+
+//        val sql = """
+//            SELECT list.ingredient,
+//                list.ingredients_list_id,
+//                list.recipe_id, rec.title,
+//                list.description,
+//                list.measurement_type,
+//                list.measurement_amount
+//            FROM $SCHEMA.$tableName list
+//            LEFT JOIN recipes rec ON list.recipe_id=rec.recipe_id;
+//        """.trimIndent()
+
         val rs = connection.createStatement().executeQuery(sql)
 
         while (rs.next()) {
             var tuple = IngredientsListEntity(
                 ingredients_list_id = rs.getInt("ingredients_list_id"),
                 recipe_id = rs.getInt("recipe_id"),
+                recipe_title = rs.getString("title"),
                 ingredient = rs.getString("ingredient"),
                 description = rs.getString("description"),
                 measurement_type = rs.getString("measurement_type"),
@@ -30,6 +60,7 @@ class IngredientsListCalls {
             resultList.add(tuple)
         }
 
+        println(resultList)
         return resultList
     }
     
