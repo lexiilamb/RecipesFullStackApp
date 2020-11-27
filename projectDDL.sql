@@ -98,7 +98,6 @@ insert into instructions (recipe_id, step, instruction) values ($step, $instruct
 -- Example tuple: ("'Baking Pan'", "'Mostly for baking recipes'")
 insert into equipment (name, description) values ($name, $description);
 
-
 -- get all tuples from a table
 SELECT * FROM $SCHEMA.$tableName ORDER BY name ASC
 
@@ -109,3 +108,20 @@ SELECT * FROM recipesdb.ingredients_lists WHERE recipe_id = (SELECT recipe_id FR
 
 -- 2) get all instructions for a specific recipe
 SELECT * FROM recipesdb.instructions WHERE recipe_id = (SELECT recipe_id FROM recipesdb.recipes WHERE title = '${recipeTitle}')
+
+-- 3) get all ingreidents joined with recipes and sort based on amount 
+SELECT 
+    list.ingredient, 
+    list.ingredients_list_id, 
+    list.recipe_id, 
+    rec.title, 
+    list.description, 
+    list.measurement_type, 
+    list.measurement_amount 
+FROM $SCHEMA.$tableName list
+LEFT JOIN recipes rec ON list.recipe_id=rec.recipe_id
+ORDER BY
+(CASE
+    WHEN list.ingredients_list_id > 10 THEN rec.title
+    ELSE list.ingredient
+END);
