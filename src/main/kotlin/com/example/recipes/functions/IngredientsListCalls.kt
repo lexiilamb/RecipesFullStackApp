@@ -14,7 +14,6 @@ class IngredientsListCalls {
     fun queryTable(SCHEMA: String, connection: Connection): List<IngredientsListEntity> {
         var resultList = ArrayList<IngredientsListEntity>()
 
-//        val sql = "SELECT * FROM $SCHEMA.$tableName"
         val sql = """
             SELECT 
                 list.ingredient, 
@@ -28,21 +27,10 @@ class IngredientsListCalls {
             LEFT JOIN recipes rec ON list.recipe_id=rec.recipe_id
             ORDER BY
             (CASE
-                WHEN list.ingredients_list_id > 10 THEN rec.title
+                WHEN (SELECT COUNT(*) FROM $SCHEMA.$tableName) > 10 THEN rec.title
                 ELSE list.ingredient
             END);
         """.trimIndent()
-
-//        val sql = """
-//            SELECT list.ingredient,
-//                list.ingredients_list_id,
-//                list.recipe_id, rec.title,
-//                list.description,
-//                list.measurement_type,
-//                list.measurement_amount
-//            FROM $SCHEMA.$tableName list
-//            LEFT JOIN recipes rec ON list.recipe_id=rec.recipe_id;
-//        """.trimIndent()
 
         val rs = connection.createStatement().executeQuery(sql)
 
@@ -60,7 +48,6 @@ class IngredientsListCalls {
             resultList.add(tuple)
         }
 
-        println(resultList)
         return resultList
     }
     

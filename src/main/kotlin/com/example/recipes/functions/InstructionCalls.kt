@@ -14,7 +14,23 @@ class InstructionCalls {
     fun queryTable(SCHEMA: String, connection: Connection): List<InstructionEntity> {
         var resultList = ArrayList<InstructionEntity>()
 
-        val sql = "SELECT * FROM $SCHEMA.$tableName"
+//        val sql = "SELECT * FROM $SCHEMA.$tableName"
+        val sql = """
+            SELECT
+                inst.instruction_id, 
+                inst.step, 
+                inst.instruction, 
+                rec.title, 
+                inst.recipe_id
+            FROM $SCHEMA.$tableName inst
+            LEFT JOIN recipes rec ON inst.recipe_id=rec.recipe_id
+            ORDER BY
+            (CASE
+                WHEN (SELECT COUNT(*) FROM $SCHEMA.$tableName) > 10 THEN rec.title
+                ELSE inst.step
+            END);
+        """.trimIndent()
+
         val rs = connection.createStatement().executeQuery(sql)
 
         while (rs.next()) {
@@ -22,6 +38,7 @@ class InstructionCalls {
                 instruction_id = rs.getInt("instruction_id"),
                 step = rs.getInt("step"),
                 instruction = rs.getString("instruction"),
+                recipe_title = rs.getString("title"),
                 recipe_id = rs.getInt("recipe_id")
             )
 

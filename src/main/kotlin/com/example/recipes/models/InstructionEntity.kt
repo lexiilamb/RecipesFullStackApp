@@ -8,6 +8,7 @@ data class InstructionEntity(
 
     val step: Int,
     val instruction: String,
+    val recipe_title: String? = "",
     val recipe_id: Int,
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY) val instruction_id: Int? = null
 )

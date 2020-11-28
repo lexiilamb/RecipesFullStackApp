@@ -1,12 +1,15 @@
+-- // 7: You must create a DDL for all the tables.
+-- // 1: You are required to develop a database containing a minimum of 8 relations.
+-- // 2: Each table should contain a primary key or foreign key.  
+-- // 3: You must utilize, varchar, int, numeric, float, data types. (or equivalents)
+-- // 4: You must create indexes to make sure your queries perform well.
 
 -- create a new database named recipesdb
 create database recipesdb;
-
 -- switch to the new database
 use recipesdb;
 
-
--- create 7 tables 
+-- create 8+ relations 
 create table recipes (
     recipe_id int not null auto_increment,
     title varchar(255) not null,
@@ -66,9 +69,60 @@ create table equipment (
     description varchar(225) not null,
     primary key (equipment_id)
 )
+-- Join tables created later in code
 
 -- create index for recipe title
 CREATE INDEX recipe_title ON recipes (title);
+
+
+
+-- // 5: You must create 3 views.
+        -- 5a A view should take advantage of When statements
+        -- 5b A view should take advantage of Subqueries.
+
+-- 1) get all ingredients for a specific recipe 
+SELECT * FROM recipesdb.ingredients_lists WHERE recipe_id = (SELECT recipe_id FROM recipesdb.recipes WHERE title = '${recipeTitle}')
+
+-- 2) get all instructions for a specific recipe
+SELECT * FROM recipesdb.instructions WHERE recipe_id = (SELECT recipe_id FROM recipesdb.recipes WHERE title = '${recipeTitle}')
+
+-- 3) get all ingreidents joined with recipes; sort by reicpe title or 
+        -- ingredient name based on the amount of data in table
+SELECT 
+    list.ingredient, 
+    list.ingredients_list_id, 
+    list.recipe_id, 
+    rec.title, 
+    list.description, 
+    list.measurement_type, 
+    list.measurement_amount 
+FROM $SCHEMA.$tableName list
+LEFT JOIN recipes rec ON list.recipe_id=rec.recipe_id
+ORDER BY
+(CASE
+    WHEN (SELECT COUNT(*) FROM $SCHEMA.$tableName) > 10 THEN rec.title
+    ELSE list.ingredient
+END);
+
+-- 3) get all instructions joined with recipes; sort by reicpe title or 
+        -- instruction step based on the amount of data in table
+ SELECT
+    inst.instruction_id, 
+    inst.step, 
+    inst.instruction, 
+    rec.title, 
+    inst.recipe_id
+FROM $SCHEMA.$tableName inst
+LEFT JOIN recipes rec ON inst.recipe_id=rec.recipe_id
+ORDER BY
+(CASE
+    WHEN (SELECT COUNT(*) FROM $SCHEMA.$tableName) > 10 THEN rec.title
+    ELSE inst.step
+END);
+
+
+
+-- // 6: You must generate test data for each table.
 
 -- insert data into recipes table  
 -- Example tuple: ("'Meatloaf'", "'Beef'",  "'Quick to make'", 10, 70, 8)
@@ -98,30 +152,13 @@ insert into instructions (recipe_id, step, instruction) values ($step, $instruct
 -- Example tuple: ("'Baking Pan'", "'Mostly for baking recipes'")
 insert into equipment (name, description) values ($name, $description);
 
+
+-- // 8: You must provide sample queries demonstrating the functionality of your database. 
+-- See other sections for more example queries 
+
+-- delete a table 
+DELETE FROM $SCHEMA.$tableName
 -- get all tuples from a table
 SELECT * FROM $SCHEMA.$tableName ORDER BY name ASC
-
-
--- 3 VIEWS 
--- 1) get all ingredients for a specific recipe 
-SELECT * FROM recipesdb.ingredients_lists WHERE recipe_id = (SELECT recipe_id FROM recipesdb.recipes WHERE title = '${recipeTitle}')
-
--- 2) get all instructions for a specific recipe
-SELECT * FROM recipesdb.instructions WHERE recipe_id = (SELECT recipe_id FROM recipesdb.recipes WHERE title = '${recipeTitle}')
-
--- 3) get all ingreidents joined with recipes and sort based on amount 
-SELECT 
-    list.ingredient, 
-    list.ingredients_list_id, 
-    list.recipe_id, 
-    rec.title, 
-    list.description, 
-    list.measurement_type, 
-    list.measurement_amount 
-FROM $SCHEMA.$tableName list
-LEFT JOIN recipes rec ON list.recipe_id=rec.recipe_id
-ORDER BY
-(CASE
-    WHEN list.ingredients_list_id > 10 THEN rec.title
-    ELSE list.ingredient
-END);
+-- delete a tuple from table 
+delete from $tableName where $tupleId = $id;
