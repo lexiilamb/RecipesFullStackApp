@@ -20,7 +20,8 @@ class EquipmentCalls {
         while (rs.next()) {
             var tuple = EquipmentEntity(equipment_id = rs.getInt("equipment_id"),
                 name = rs.getString("name"),
-                description = rs.getString("description"))
+                description = rs.getString("description"),
+                recipe_id = rs.getInt("recipe_id"))
 
             resultList.add(tuple)
         }
@@ -29,23 +30,31 @@ class EquipmentCalls {
     }
     
     fun insertTableData(connection: Connection) {
-        insertRow(connection, "'Oven'", "'-'")
-        insertRow(connection, "'Stove'", "'-'")
-        insertRow(connection, "'Toaster Oven'", "'-'")
-        insertRow(connection, "'Microwave'", "'-'")
-        insertRow(connection, "'Blender'", "'-'")
-        insertRow(connection, "'Mixer'", "'-'")
-        insertRow(connection, "'Frying Pan'", "'-'")
-        insertRow(connection, "'Baking Pan'", "'Mostly for baking recipes'")
+        insertRow(connection, "'Oven'", "'or toaster oven'", 1)
+        insertRow(connection, "'Toaster Oven'", "'or oven'", 1)
+        insertRow(connection, "'Mixing Bowls'", "'-'", 1)
+        insertRow(connection, "'Mixer'", "'-'", 1)
+        insertRow(connection, "'Muffin Pan'", "'-'", 1)
+        insertRow(connection, "'Frying Pan'", "'-'", 2)
+        insertRow(connection, "'Oven'", "'-'", 3)
+        insertRow(connection, "'Skillet'", "'Ovenproof'", 3)
+        insertRow(connection, "'Oven'", "'-'", 4)
+        insertRow(connection, "'Mixing Bowls'", "'-'", 4)
+        insertRow(connection, "'Loaf Pan'", "'-'", 4)
+        insertRow(connection, "'Mixing Bowls'", "'-'", 5)
+        insertRow(connection, "'Frying Pan'", "'-'", 5)
+        insertRow(connection, "'Baking Sheet'", "'-'", 5)
+        insertRow(connection, "'Oven'", "'-'", 5)
 
     }
 
     fun insertRow(connection: Connection,
                   name: String,
-                  description: String) {
+                  description: String,
+                  recipe_id: Int) {
 
         connection.setAutoCommit(false);
-        val sql = "insert into $tableName (name, description) values ($name, $description);"
+        val sql = "insert into $tableName (name, description, recipe_id) values ($name, $description, $recipe_id);"
         with(connection) {
             createStatement().execute(sql)
             connection.commit()
@@ -84,7 +93,8 @@ class EquipmentCalls {
             .use { connection ->
                 insertRow(connection,
                     "'${newTuple.name}'",
-                    newTuple.description)
+                    newTuple.description,
+                    newTuple.recipe_id)
             }
     }
 

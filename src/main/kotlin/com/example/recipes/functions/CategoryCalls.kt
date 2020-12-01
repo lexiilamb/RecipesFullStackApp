@@ -7,18 +7,18 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class CategoryCalls {
-    val SCHEMA = "recipesdb"
-    val tableName = "categories"
-    val tupleId = "category_id"
+    private val SCHEMA = "recipesdb"
+    private val tableName = "categories"
+    private val tupleId = "category_id"
 
-    fun queryTable(SCHEMA: String, connection: Connection): List<CategoryEntity> {
-        var resultList = ArrayList<CategoryEntity>()
+    private fun queryTable(SCHEMA: String, connection: Connection): List<CategoryEntity> {
+        val resultList = ArrayList<CategoryEntity>()
 
         val sql = "SELECT * FROM $SCHEMA.$tableName ORDER BY name ASC"
         val rs = connection.createStatement().executeQuery(sql)
 
         while (rs.next()) {
-            var tuple = CategoryEntity(category_id = rs.getInt("category_id"),
+            val tuple = CategoryEntity(category_id = rs.getInt("category_id"),
                 name = rs.getString("name"),
                 description = rs.getString("description"))
 
@@ -39,11 +39,11 @@ class CategoryCalls {
         insertRow(connection, "'Chicken'", "'Legs, wings, thighs, and breast recieps'")
     }
 
-    fun insertRow(connection: Connection,
-                  name: String,
-                  description: String?) {
+    private fun insertRow(connection: Connection,
+                          name: String,
+                          description: String?) {
 
-        connection.setAutoCommit(false);
+        connection.setAutoCommit(false)
         val sql = "insert into $tableName (name, description) values ($name, $description);"
         with(connection) {
             createStatement().execute(sql)
@@ -100,7 +100,7 @@ class CategoryCalls {
         DriverManager
             .getConnection("jdbc:mysql://localhost:3306/recipesdb", properties)
             .use { connection ->
-                connection.setAutoCommit(false);
+                connection.setAutoCommit(false)
                 val sql = "delete from $tableName where $tupleId = $id;"
                 with(connection) {
                     createStatement().execute(sql)

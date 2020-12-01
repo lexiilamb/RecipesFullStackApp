@@ -14,7 +14,6 @@ class InstructionCalls {
     fun queryTable(SCHEMA: String, connection: Connection): List<InstructionEntity> {
         var resultList = ArrayList<InstructionEntity>()
 
-//        val sql = "SELECT * FROM $SCHEMA.$tableName"
         val sql = """
             SELECT
                 inst.instruction_id, 
@@ -68,7 +67,7 @@ class InstructionCalls {
         insertRow(connection, 4, 3, "'Top chicken with onions; surround with apples. Mix syrup and dressing; pour over chicken.'")
         insertRow(connection, 4, 4, "'Bake 20 to 25 min. or until chicken is done (165ºF). Drizzle with syrup mixture from bottom of skillet.'")
         insertRow(connection, 5, 1, "'Whisk crushed pineapple, soy suace, honey, ginger and garlic in a bowl. Pour half in plastic bag and resure the other half.'")
-        insertRow(connection, 5, 2, "'Place chicken breasts in resealale bag. Massage/coat chicken with marinade. Refrigerate for 30 to overnight.'")
+        insertRow(connection, 5, 2, "'Place chicken breasts in resealable bag. Massage/coat chicken with marinade. Refrigerate for 30 to overnight.'")
         insertRow(connection, 5, 3, "'Place the marinated chicken breasts on a foil-lined baking sheet, spoon some of the chunky pineapple/ginger, and broil for 8 to 10 minutes on each side, for a total of 16-20 minutes.'")
         insertRow(connection, 5, 4, "'Heat the reserved teriyaki sauce in a saucepan. Bring to a simmer and cook for 3 minutes or until thickened slightly.'")
         insertRow(connection, 5, 5, "'When chicken is done, Slice the chicken, pour the teriyaki sauce over top and serve immediately.'")

@@ -73,16 +73,9 @@ class AppFunctions {
 		equipment_id int not null auto_increment,
 		name varchar(225) not null,
 		description varchar(225) not null,
-		primary key (equipment_id)
-	)""")
-
-    private val recipeEquipmentTable = listOf("recipe_equipment",
-        """create table recipe_equipment (
-		recipe_equipment_id int not null auto_increment,
-		name varchar(225) not null,
-		recipe_id int not null,
+        recipe_id int not null,
 		foreign key (recipe_id) references recipes(recipe_id),
-		primary key (recipe_equipment_id)
+		primary key (equipment_id)
 	)""")
 
     private val tables = listOf(

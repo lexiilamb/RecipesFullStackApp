@@ -81,10 +81,20 @@ CREATE INDEX recipe_title ON recipes (title);
         -- 5b A view should take advantage of Subqueries.
 
 -- 1) get all ingredients for a specific recipe 
-SELECT * FROM recipesdb.ingredients_lists WHERE recipe_id = (SELECT recipe_id FROM recipesdb.recipes WHERE title = '${recipeTitle}')
+SELECT * 
+FROM recipesdb.ingredients_lists 
+WHERE recipe_id = 
+    (SELECT recipe_id 
+    FROM recipesdb.recipes 
+    WHERE title = '${recipeTitle}')
 
 -- 2) get all instructions for a specific recipe
-SELECT * FROM recipesdb.instructions WHERE recipe_id = (SELECT recipe_id FROM recipesdb.recipes WHERE title = '${recipeTitle}')
+SELECT * 
+FROM recipesdb.instructions 
+WHERE recipe_id = 
+    (SELECT recipe_id 
+    FROM recipesdb.recipes 
+    WHERE title = '${recipeTitle}')
 
 -- 3) get all ingreidents joined with recipes; sort by reicpe title or 
         -- ingredient name based on the amount of data in table

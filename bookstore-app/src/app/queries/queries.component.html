@@ -9,7 +9,7 @@
 <div style="margin: 2rem">
     <div class="row">
         <div class="col">
-            <h2 class="text-center">Ingredients List:</h2>
+            <h2 class="text-center">Ingredients:</h2>
             <div *ngFor="let ingredient of ingredientsData">
                 * {{ingredientMeasurement(ingredient.measurement_amount)}} {{ingredient.measurement_type}} {{ingredient.ingredient}} {{ingredientDescription(ingredient.description)}}
             </div>

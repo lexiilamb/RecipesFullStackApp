@@ -119,10 +119,9 @@ class RecipeCalls {
             .getConnection("jdbc:mysql://localhost:3306/recipesdb", properties)
             .use { connection ->
 
-//                deleteDependencies(id, "categories", connection)
                 deleteDependencies(id, "ingredients_lists", connection)
                 deleteDependencies(id, "instructions", connection)
-//                deleteDependencies(id, "equipment", connection)
+                deleteDependencies(id, "equipment", connection)
             }
 
         //Open a connection to the database
