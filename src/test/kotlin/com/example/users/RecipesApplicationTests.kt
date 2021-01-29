@@ -1,6 +1,6 @@
-package com.example.recipes
+package com.example.users
 
-import com.example.recipes.api.RecipeService
+import com.example.users.api.UserService
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
@@ -9,7 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest
 class RecipesApplicationTests {
 
 	@Autowired
-	lateinit var recipService: RecipeService
+	lateinit var recipService: UserService
 
 	@Test
 	fun contextLoads() {
